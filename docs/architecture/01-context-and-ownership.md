@@ -73,9 +73,9 @@ Skladový pohyb, lokálne väzby dokladov, audit a dokončenie ERP operácie sa 
 
 ## Technológia
 
-PHP je primeraný východiskový jazyk vzhľadom na tím a eOil. Predbežne volím framework, ktorý tím bezpečne prevádzkuje, a udržím doménové pravidlá mimo controllerov a aktívnych modelov. **Yii3 sa musí posudzovať ako reálna alternatíva; tvrdenie, že existuje iba Yii2, by bolo nesprávne.** Táto etapa neoverovala aktuálnu podporu, balíky ani ich kompatibilitu a preto neuzatvára výber Yii2/Yii3/Laravel.
+Používateľ 27. 9. 2026 zvolil **Yii3** a rovnaký CSS/JS template ako newadmin. Prvý balík používa PHP 8.4 v Dockeri, Yii3 web template a server-rendered views s Limitless v4/Bootstrap 5/Phosphor. Podrobnosti a overené zdroje sú v [ADR-004](../decisions/004-yii3-and-newadmin-theme.md).
 
-Nasledujúci malý technický prieskum porovná: podporovanú PHP verziu a maintenance frameworku, DB transakcie/locking, decimal hodnoty, autentifikáciu, CLI importy, tlač/PDF a testovanie adaptérov. Vyberie jednu SQL databázu podľa prevádzkových skúseností a požiadaviek na zamykanie. Žiadny z týchto bodov nevyžaduje microservices. Broker, Kubernetes ani samostatný frontend framework nie sú predpokladom návrhu.
+Vývoj pokračuje po funkčných balíkoch; úplná analýza všetkých agend nie je predpokladom spustenia lokálneho základu. Neoverené pravidlá ocenenia a fiškalizácie však zostávajú podmienkou ich vlastnej implementácie. Prvý balík nepotrebuje ERP databázu; jej voľba a skladové transakcie prídu spolu so skladovým modulom. Broker, Kubernetes ani SPA nie sú súčasťou základu.
 
 ## Dostupnosť a bezpečnosť
 

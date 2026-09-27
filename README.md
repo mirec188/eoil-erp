@@ -1,6 +1,6 @@
 # eOil ERP — analýza a návrh
 
-Stav k **27. 9. 2026**: prvá reverzná analýza lokálnej kópie MRP K/S a návrh hraníc nového systému. Repo zatiaľ obsahuje dokumentáciu a nástroje na čítanie dát. Implementácia ERP ani migračný import ešte neexistujú.
+Stav k **27. 9. 2026**: prvá reverzná analýza lokálnej kópie MRP K/S a návrh hraníc nového systému. Repo zatiaľ obsahuje dokumentáciu a nástroje na čítanie dát. Migračný import ešte neexistuje. Na základe následného zadania sa pripravuje prvý Yii3 implementačný balík.
 
 **Potvrdená hranica:** `ProductHasPack`, `User` a dohodnuté kmeňové údaje zostávajú v eOil. ERP je samostatná aplikácia, napojená cez API. Konkrétne vlastníctvo ostatných entít je uvedené v návrhu; slovo „a pod.“ sa nepovažuje za hotovú špecifikáciu.
 
@@ -31,3 +31,7 @@ Rozhodnutia: [ADR-001: identity v eOil](docs/decisions/001-eoil-master-data.md),
 [Vykonané overenie a jeho limity](docs/research/06-validation.md): 98 analytických dotazov, 11 Mermaid diagramov, kontrola zdrojových hashov a odkazov.
 
 Dokumentácia obsahuje interné agregované prevádzkové údaje. Do Gitu nepatria databázy, osobné údaje, heslá, originálne doklady ani snímky zákazníckych údajov. Viditeľnosť vzdialeného repozitára zatiaľ nebola overená.
+
+## Začatie vývoja
+
+Používateľ vybral Yii3, vzhľad newadmin a lokálny Claude Code / Opus 5.5. [Návrh prvého balíka](docs/superpowers/specs/2026-09-27-foundation-design.md), [implementačný plán](docs/superpowers/plans/2026-09-27-foundation.md) a [zadanie pre Claude Code](docs/development/claude-first-slice.md). [ADR-004](docs/decisions/004-yii3-and-newadmin-theme.md) nahrádza otvorený výber frameworku.

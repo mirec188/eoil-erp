@@ -1,6 +1,6 @@
 # Pravidlá práce na eOil ERP
 
-- Komunikácia po slovensky alebo anglicky. Začíname reverznou analýzou; nevytvárať ERP implementáciu len preto, že existuje návrh diagramu.
+- Komunikácia po slovensky alebo anglicky. Používateľ 27. 9. 2026 poveril postupným vývojom v Yii3 popri dopĺňaní analýzy. Implementovať konkrétne pracovné balíky; nevydávať neoverené MRP pravidlá za hotovú špecifikáciu.
 - `ProductHasPack` a `User` majú autoritu v eOil. ERP pracuje s referenciami cez API; bez priameho zápisu do eOil DB. Ostatné vlastníctvo pozri `docs/architecture/01-context-and-ownership.md`.
 - Rozlišovať: potvrdené používateľom, pozorované v UI, zmerané v dátach, prečítané v kóde, hypotéza, návrh. Prázdna tabuľka nie je dôkaz, že funkcia nikdy nebola potrebná.
 - MRP výskum iba na oddelenej kópii v režime read-only. Testovanie zápisových workflow vyžaduje ďalšiu obetovateľnú kópiu a odpojené externé integrácie.

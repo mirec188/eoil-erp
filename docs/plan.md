@@ -1,5 +1,7 @@
 # Etapy a výstupné podmienky
 
+**Aktualizácia 27. 9. 2026:** používateľ poveril začatím postupného vývoja cez Claude Code / Opus 5.5. Yii3 a vzhľad newadmin sú vybrané. [Prvý implementačný balík](superpowers/plans/2026-09-27-foundation.md) môže prebiehať súbežne s P1/P2; nerobí skladové ani finančné zápisy.
+
 Bez kalendárneho odhadu, kým nie je potvrdený rozsah a dostupnosť obsluhy. Každá etapa má konkrétny artefakt a podmienku ukončenia.
 
 | Etapa | Výstup | Stav / podmienka ukončenia |
