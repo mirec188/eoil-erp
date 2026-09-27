@@ -41,7 +41,8 @@ final readonly class ProductPackView
         self::assertText($name, 'name', 500);
         self::assertText($packLabel, 'packLabel', 100);
         if ($unit !== null) {
-            self::assertText($unit, 'unit', 20);
+            // eOil Entity names reach 29 characters (measured in eoil_test).
+            self::assertText($unit, 'unit', 64);
         }
         if (!array_is_list($mrpNumbers)) {
             throw new InvalidArgumentException('mrpNumbers must be a list.');

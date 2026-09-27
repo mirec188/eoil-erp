@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Web\Catalog;
 
+use App\Catalog\CatalogAccessDenied;
+use App\Catalog\CatalogAuthenticationRequired;
 use App\Catalog\CatalogGateway;
 use App\Catalog\CatalogUnavailable;
 use App\Catalog\InvalidCatalogQuery;
+use App\Web\Auth\SignInResponses;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -21,6 +24,7 @@ final readonly class ListAction
         private WebViewRenderer $viewRenderer,
         private UrlGeneratorInterface $urlGenerator,
         private LoggerInterface $logger,
+        private SignInResponses $signIn,
     ) {}
 
     public function __invoke(ServerRequestInterface $request): ResponseInterface
@@ -42,6 +46,10 @@ final readonly class ListAction
 
         try {
             $page = $this->gateway->search($query);
+        } catch (CatalogAuthenticationRequired) {
+            return $this->signIn->signInExpired($request);
+        } catch (CatalogAccessDenied) {
+            return $this->signIn->accessRevoked();
         } catch (CatalogUnavailable $e) {
             $this->logger->warning('Catalog list unavailable: ' . $e->getMessage());
             return $this->viewRenderer

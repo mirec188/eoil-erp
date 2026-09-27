@@ -17,8 +17,10 @@ use Yiisoft\Html\Html;
  * @var Yiisoft\Aliases\Aliases $aliases
  * @var Yiisoft\Assets\AssetManager $assetManager
  * @var CatalogSettings $catalogSettings
+ * @var App\Auth\EoilSignInSettings $signInSettings
+ * @var App\Auth\AuthSession $authSession
  * @var string $content
- * @var string|null $csrf
+ * @var Yiisoft\Yii\View\Renderer\Csrf $csrf
  * @var Yiisoft\View\WebView $this
  * @var Yiisoft\Router\CurrentRoute $currentRoute
  * @var Yiisoft\Router\UrlGeneratorInterface $urlGenerator
@@ -51,6 +53,7 @@ $navItems = [
 /** @var list<array{label: string, url?: string}> $breadcrumbs */
 $breadcrumbs = $this->getParameter('breadcrumbs', []);
 $isDemo = $catalogSettings->isDemo();
+$signedInUser = $signInSettings->enabled ? $authSession->currentUser() : null;
 
 $this->beginPage()
 ?>
@@ -83,9 +86,23 @@ $this->beginPage()
             </a>
         </div>
 
-        <div class="d-none d-xl-flex align-items-center order-xl-1 ms-auto">
-            <span class="navbar-text text-white-50">Lokálny vývoj · bez prihlásenia</span>
-        </div>
+        <?php if ($signedInUser !== null): ?>
+            <div class="d-flex align-items-center order-xl-1 ms-auto gap-2">
+                <span class="navbar-text text-white d-none d-sm-inline" title="Prihlásený cez eOil">
+                    <i class="ph-user-circle me-1" aria-hidden="true"></i><?= Html::encode($signedInUser->displayName) ?>
+                </span>
+                <form method="post" action="/logout" class="m-0">
+                    <?= $csrf->hiddenInput() ?>
+                    <button type="submit" class="btn btn-sm btn-outline-light" aria-label="Odhlásiť sa z ERP">
+                        <i class="ph-sign-out" aria-hidden="true"></i><span class="d-none d-md-inline ms-1">Odhlásiť</span>
+                    </button>
+                </form>
+            </div>
+        <?php elseif (!$signInSettings->enabled): ?>
+            <div class="d-none d-xl-flex align-items-center order-xl-1 ms-auto">
+                <span class="navbar-text text-white-50">Lokálny vývoj · bez prihlásenia</span>
+            </div>
+        <?php endif; ?>
 
         <div class="navbar-collapse collapse" id="navbar-mobile">
             <ul class="navbar-nav mt-2 mt-xl-0">

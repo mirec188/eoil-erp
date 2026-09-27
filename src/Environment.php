@@ -30,9 +30,12 @@ final class Environment
         self::setBoolean('APP_DEBUG', false);
         self::setNonEmptyStringOrNull('APP_HOST_PATH', null);
         self::setNonEmptyStringOrNull('CATALOG_SOURCE', null);
-        self::setNonEmptyStringOrNull('CATALOG_API_BASE_URL', null);
-        self::setNonEmptyStringOrNull('CATALOG_API_TOKEN', null);
         self::setNonEmptyStringOrNull('CATALOG_API_TIMEOUT', null);
+        self::setNonEmptyStringOrNull('EOIL_API_BASE_URL', null);
+        self::setNonEmptyStringOrNull('EOIL_AUTHORIZE_URL', null);
+        self::setNonEmptyStringOrNull('EOIL_CLIENT_ID', null);
+        self::setNonEmptyStringOrNull('EOIL_CLIENT_SECRET', null);
+        self::setNonEmptyStringOrNull('ERP_REDIRECT_URI', null);
     }
 
     /**
@@ -45,22 +48,43 @@ final class Environment
         return self::$values['CATALOG_SOURCE'];
     }
 
-    public static function catalogApiBaseUrl(): ?string
-    {
-        /** @var string|null */
-        return self::$values['CATALOG_API_BASE_URL'];
-    }
-
-    public static function catalogApiToken(): ?string
-    {
-        /** @var string|null */
-        return self::$values['CATALOG_API_TOKEN'];
-    }
-
     public static function catalogApiTimeout(): ?string
     {
         /** @var string|null */
         return self::$values['CATALOG_API_TIMEOUT'];
+    }
+
+    /** Server-side base URL of the eOil backend (catalog API and token endpoint). */
+    public static function eoilApiBaseUrl(): ?string
+    {
+        /** @var string|null */
+        return self::$values['EOIL_API_BASE_URL'];
+    }
+
+    /** Browser-facing URL of the eOil sign-in (authorize) page. */
+    public static function eoilAuthorizeUrl(): ?string
+    {
+        /** @var string|null */
+        return self::$values['EOIL_AUTHORIZE_URL'];
+    }
+
+    public static function eoilClientId(): ?string
+    {
+        /** @var string|null */
+        return self::$values['EOIL_CLIENT_ID'];
+    }
+
+    public static function eoilClientSecret(): ?string
+    {
+        /** @var string|null */
+        return self::$values['EOIL_CLIENT_SECRET'];
+    }
+
+    /** Absolute callback URL of this ERP, registered in eOil. */
+    public static function erpRedirectUri(): ?string
+    {
+        /** @var string|null */
+        return self::$values['ERP_REDIRECT_URI'];
     }
 
     /**

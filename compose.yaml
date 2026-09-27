@@ -1,6 +1,8 @@
 # eOil ERP — isolated local development stack (first slice).
 # Host port is bound to loopback only. Not a production deployment.
-name: eoil-erp
+# Project name and host port are overridable so a second checkout (e.g. the M2 worktree) can run
+# next to the first one: COMPOSE_PROJECT_NAME=eoil-erp-m2 ERP_HTTP_PORT=8089 docker compose up -d
+name: ${COMPOSE_PROJECT_NAME:-eoil-erp}
 
 services:
   app:
@@ -12,14 +14,21 @@ services:
     environment:
       APP_ENV: ${APP_ENV:-dev}
       APP_DEBUG: ${APP_DEBUG:-true}
-      # Explicit catalog source. `fixture` = synthetic demo data only.
+      # Explicit catalog source. `fixture` = synthetic demo data only, no sign-in.
+      # `http` = real eOil data through the eOil API, sign-in through eOil required.
       CATALOG_SOURCE: ${CATALOG_SOURCE:-fixture}
-      CATALOG_API_BASE_URL: ${CATALOG_API_BASE_URL:-}
-      CATALOG_API_TOKEN: ${CATALOG_API_TOKEN:-}
       CATALOG_API_TIMEOUT: ${CATALOG_API_TIMEOUT:-5}
+      EOIL_API_BASE_URL: ${EOIL_API_BASE_URL:-}
+      EOIL_AUTHORIZE_URL: ${EOIL_AUTHORIZE_URL:-}
+      EOIL_CLIENT_ID: ${EOIL_CLIENT_ID:-eoil-erp}
+      EOIL_CLIENT_SECRET: ${EOIL_CLIENT_SECRET:-}
+      ERP_REDIRECT_URI: ${ERP_REDIRECT_URI:-}
       PHP_CLI_SERVER_WORKERS: "4"
     ports:
-      - "127.0.0.1:8088:8080"
+      - "127.0.0.1:${ERP_HTTP_PORT:-8088}:8080"
+    extra_hosts:
+      # Reach a local MAMP eOil on the Mac (plain HTTP accepted for this host only in APP_ENV=dev).
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./:/app
     healthcheck:

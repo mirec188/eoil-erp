@@ -5,6 +5,7 @@ declare(strict_types=1);
 use App\Environment;
 use App\Web\NotFound\NotFoundHandler;
 use App\Web\Shared\Access\AccessPolicyMiddleware;
+use App\Web\Shared\Access\RequireSignInMiddleware;
 use App\Web\Shared\SecurityHeadersMiddleware;
 use Yiisoft\Csrf\CsrfTokenMiddleware;
 use Yiisoft\Definitions\DynamicReference;
@@ -34,6 +35,7 @@ return [
                         AccessPolicyMiddleware::class,
                         SessionMiddleware::class,
                         CsrfTokenMiddleware::class,
+                        RequireSignInMiddleware::class,
                         RequestCatcherMiddleware::class,
                         Router::class,
                     ],

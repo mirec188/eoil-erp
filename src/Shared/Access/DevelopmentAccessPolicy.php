@@ -10,10 +10,10 @@ use App\Environment;
 /**
  * Decides whether this build may serve requests in the given configuration.
  *
- * The first slice is a local development base with synthetic data and no user identity or
- * authorization. Production is therefore refused unconditionally, whatever the catalog source.
- * M2 must replace this with a real eOil identity/authorization mechanism; there is no switch,
- * setting or string that enables production here.
+ * The ERP is a local development base. The demo catalog has no sign-in; the eOil sign-in of M2
+ * (CATALOG_SOURCE=http) is verified only locally — not deployed over HTTPS and not security-reviewed.
+ * Production is therefore refused unconditionally, whatever the catalog source. There is no switch,
+ * setting or string that enables production here; opening it is a separate, reviewed change.
  */
 final readonly class DevelopmentAccessPolicy
 {
@@ -22,8 +22,8 @@ final readonly class DevelopmentAccessPolicy
         if ($appEnv === Environment::PROD) {
             return AccessDecision::deny(
                 $catalogSource === CatalogSource::Fixture
-                    ? 'Ukážkové údaje nie sú povolené v produkčnej konfigurácii. Táto verzia nemá prihlásenie.'
-                    : 'Táto verzia nemá prihlásenie používateľov eOil, preto nesmie bežať v produkcii.',
+                    ? 'Ukážkové údaje nie sú povolené v produkčnej konfigurácii. Ukážkový režim nemá prihlásenie.'
+                    : 'Prihlásenie cez eOil je overené iba lokálne; produkčné nasadenie ERP ešte nie je schválené.',
             );
         }
 

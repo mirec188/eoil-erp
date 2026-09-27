@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use App\Auth\AuthSession;
+use App\Auth\EoilSignInSettings;
 use App\Catalog\CatalogSettings;
 use App\Shared\ApplicationParams;
 use Yiisoft\Aliases\Aliases;
@@ -27,6 +29,26 @@ return [
             'urlGenerator' => Reference::to(UrlGeneratorInterface::class),
             'currentRoute' => Reference::to(CurrentRoute::class),
             'catalogSettings' => Reference::to(CatalogSettings::class),
+            'signInSettings' => Reference::to(EoilSignInSettings::class),
+            'authSession' => Reference::to(AuthSession::class),
+        ],
+    ],
+
+    // Session cookie: HttpOnly, SameSite=Lax (the eOil callback is a top-level GET navigation),
+    // strict mode rejects unknown IDs. `cookie_secure` is off for local HTTP development only;
+    // an HTTPS deployment must set it to 1 (production is refused in this slice anyway).
+    'yiisoft/session' => [
+        'session' => [
+            'options' => [
+                'name' => 'ERPSESSID',
+                'cookie_httponly' => 1,
+                'cookie_samesite' => 'Lax',
+                'cookie_secure' => 0,
+                'use_strict_mode' => 1,
+                'use_only_cookies' => 1,
+                'gc_maxlifetime' => 3600,
+            ],
+            'handler' => null,
         ],
     ],
 

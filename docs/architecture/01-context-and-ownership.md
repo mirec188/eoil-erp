@@ -30,7 +30,7 @@ Adapter zariadení je logická hranica. Môže byť knižnica alebo malá lokál
 |---|---|---|---|
 | Product, Pack, ProductHasPack | eOil | Stabilné ID + minimálna verzovaná projekcia pre vyhľadávanie a doklady | ProductHasPack potvrdené; detaily kontraktu otvorené |
 | User | eOil | Referencia, oprávnenia ERP; snímka autora na audite | Potvrdené |
-| Prihlásenie | eOil alebo spoločný identity provider | Vlastná session ERP, žiadna kópia hesiel | Návrh; eOil dnes nemá overené všeobecné SSO |
+| Prihlásenie | eOil (authorization code + PKCE, [ADR-005](../decisions/005-eoil-sign-in.md)) | Vlastná session ERP, krátkodobý token, žiadna kópia hesiel | M2 implementované a overené lokálne; nenasadené |
 | Odberateľ/právnická osoba | eOil, s doplnením existujúceho modelu ak treba | PartnerRef a nemenná snímka na doklade | Návrh; väzba User–Customer sa musí upresniť |
 | Dodávateľ | Preferovane existujúci eOil Supplier | Referencia a snímka | Rozhodnúť presný rozsah „a pod.“ |
 | MRP historická identita | Migračná mapa v ERP; existujúci ExternalId v eOil | SourceKey → eOil ID / ERP ID, história rozhodnutí | Návrh; typ 14 zachovať pri prechode |

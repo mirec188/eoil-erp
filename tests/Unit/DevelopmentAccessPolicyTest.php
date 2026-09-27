@@ -45,7 +45,7 @@ final class DevelopmentAccessPolicyTest extends Unit
         foreach (CatalogSource::cases() as $source) {
             $decision = (new DevelopmentAccessPolicy())->decide('prod', $source);
             assertFalse($decision->allowed, $source->value);
-            assertStringContainsString('prihlásenie', $decision->reason);
+            assertStringContainsString('produkč', $decision->reason);
         }
     }
 

@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace App\Catalog;
 
+use App\Shared\Http\InvalidJsonResponse;
+use App\Shared\Http\JsonResponseReader;
 use InvalidArgumentException;
-use JsonException;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\RequestFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
-use RuntimeException;
-use SensitiveParameter;
 
 use function array_is_list;
 use function array_key_exists;
@@ -20,26 +19,20 @@ use function is_array;
 use function is_bool;
 use function is_int;
 use function is_string;
-use function json_decode;
-use function min;
 use function rtrim;
-use function str_contains;
-use function strlen;
-use function strtolower;
 
 /**
- * HTTP adapter for the *proposed* eOil ERP catalog API (see docs/development/catalog-api-contract.md).
+ * HTTP adapter for the eOil ERP catalog API (see docs/development/catalog-api-contract.md).
  *
- * The endpoint does not exist in eOil yet (M2); this adapter is verified only against test transports
- * and a local mock. It performs GET requests only, never retries, and treats every unexpected status,
- * transport error or malformed/invalid payload as CatalogUnavailable — never as an empty catalog.
+ * Implemented on the eOil side in M2 (branch codex/erp-api-identity, not deployed). Every request carries
+ * the access token of the signed-in user. GET only, no retries. 401 means the sign-in is no longer
+ * valid, 403 that the user may no longer use the ERP; every other unexpected status, transport error or
+ * malformed/invalid payload is CatalogUnavailable — never an empty catalog.
  */
 final class HttpCatalogGateway implements CatalogGateway
 {
     private const COLLECTION_PATH = '/erp-api/v1/product-packs';
-    public const MAX_BODY_BYTES = 2_000_000;
-    private const READ_CHUNK_BYTES = 65_536;
-    private const JSON_DEPTH = 16;
+    public const MAX_BODY_BYTES = JsonResponseReader::MAX_BODY_BYTES;
 
     private readonly string $baseUrl;
 
@@ -47,8 +40,7 @@ final class HttpCatalogGateway implements CatalogGateway
         private readonly ClientInterface $client,
         private readonly RequestFactoryInterface $requestFactory,
         string $baseUrl,
-        #[SensitiveParameter]
-        private readonly string $token,
+        private readonly AccessTokenProvider $tokens,
     ) {
         $this->baseUrl = rtrim($baseUrl, '/');
     }
@@ -125,7 +117,7 @@ final class HttpCatalogGateway implements CatalogGateway
      */
     public function __debugInfo(): array
     {
-        return ['baseUrl' => $this->baseUrl, 'token' => '***'];
+        return ['baseUrl' => $this->baseUrl];
     }
 
     private function send(string $pathAndQuery): ResponseInterface
@@ -133,64 +125,30 @@ final class HttpCatalogGateway implements CatalogGateway
         $request = $this->requestFactory
             ->createRequest('GET', $this->baseUrl . $pathAndQuery)
             ->withHeader('Accept', 'application/json')
-            ->withHeader('Authorization', 'Bearer ' . $this->token)
+            ->withHeader('Authorization', 'Bearer ' . $this->tokens->accessToken())
             ->withHeader('User-Agent', 'eoil-erp');
 
         try {
-            return $this->client->sendRequest($request);
+            $response = $this->client->sendRequest($request);
         } catch (ClientExceptionInterface) {
             // The client exception may carry the request (with headers) and raw details; drop it.
             throw CatalogUnavailable::transport();
         }
+
+        return match ($response->getStatusCode()) {
+            401 => throw new CatalogAuthenticationRequired(),
+            403 => throw new CatalogAccessDenied(),
+            default => $response,
+        };
     }
 
     private function decode(ResponseInterface $response): mixed
     {
-        if (!str_contains(strtolower($response->getHeaderLine('Content-Type')), 'application/json')) {
-            throw CatalogUnavailable::invalidResponse('content type is not application/json');
-        }
-
-        $body = $this->readBody($response);
-
         try {
-            return json_decode($body, true, self::JSON_DEPTH, JSON_THROW_ON_ERROR);
-        } catch (JsonException) {
-            throw CatalogUnavailable::invalidResponse('malformed JSON');
+            return JsonResponseReader::decode($response);
+        } catch (InvalidJsonResponse $e) {
+            throw CatalogUnavailable::invalidResponse($e->getMessage());
         }
-    }
-
-    /**
-     * Reads at most MAX_BODY_BYTES + 1 bytes, so an oversized or endless body never fills memory
-     * (the client is configured to stream the body). Stream errors become a sanitized failure;
-     * their messages are never propagated.
-     */
-    private function readBody(ResponseInterface $response): string
-    {
-        $body = '';
-        try {
-            $stream = $response->getBody();
-            $size = $stream->getSize();
-            if ($size === null || $size <= self::MAX_BODY_BYTES) {
-                if ($stream->isSeekable()) {
-                    $stream->rewind();
-                }
-                while (strlen($body) <= self::MAX_BODY_BYTES && !$stream->eof()) {
-                    $chunk = $stream->read(min(self::READ_CHUNK_BYTES, self::MAX_BODY_BYTES + 1 - strlen($body)));
-                    if ($chunk === '') {
-                        break;
-                    }
-                    $body .= $chunk;
-                }
-            }
-        } catch (RuntimeException) {
-            throw CatalogUnavailable::invalidResponse('body could not be read');
-        }
-
-        if (($size ?? 0) > self::MAX_BODY_BYTES || strlen($body) > self::MAX_BODY_BYTES) {
-            throw CatalogUnavailable::invalidResponse('body is too large');
-        }
-
-        return $body;
     }
 
     private function mapItem(mixed $item): ProductPackView

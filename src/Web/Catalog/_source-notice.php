@@ -20,8 +20,8 @@ declare(strict_types=1);
     <div class="alert alert-info d-flex align-items-start gap-2 py-2" role="note">
         <i class="ph-plugs-connected flex-shrink-0 mt-1" aria-hidden="true"></i>
         <div>
-            <strong>Testovacie napojenie.</strong>
-            Údaje pochádzajú z nastaveného testovacieho zdroja. Živé napojenie na eOil nie je overené.
+            <strong>Údaje z eOil.</strong>
+            Katalóg sa načítava z nastaveného eOil (vývojové prostredie). Produkty a balenia sa upravujú v eOil.
         </div>
     </div>
 <?php endif; ?>

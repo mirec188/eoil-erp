@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Catalog;
 
+use App\Auth\EoilSignInSettings;
 use App\Catalog\CatalogSettings;
 use App\Catalog\CatalogSource;
 use App\Catalog\InvalidCatalogConfiguration;
-use Codeception\Test\Unit;
 use Codeception\Attribute\DataProvider;
+use Codeception\Test\Unit;
 
 use function PHPUnit\Framework\assertFalse;
 use function PHPUnit\Framework\assertNull;
@@ -18,94 +19,84 @@ use function PHPUnit\Framework\assertTrue;
 
 final class CatalogSettingsTest extends Unit
 {
-    private const TOKEN = 'synthetic-token-5c1e-not-a-secret';
+    private const SECRET = 'synthetic-client-secret-5c1e-not-a-real-one';
 
-    public function testFixtureSourceIsDemo(): void
+    public function testFixtureSourceIsDemoWithoutSignIn(): void
     {
-        $settings = CatalogSettings::fromEnvironment('dev', 'fixture', null, null, null);
+        $settings = CatalogSettings::fromEnvironment('dev', 'fixture', null, null);
 
         assertSame(CatalogSource::Fixture, $settings->source);
         assertTrue($settings->isDemo());
+        assertFalse($settings->requiresSignIn());
         assertNull($settings->apiBaseUrl);
         assertSame(CatalogSettings::DEFAULT_TIMEOUT, $settings->timeout);
+        assertFalse(EoilSignInSettings::fromEnvironment('dev', $settings, null, null, null, null)->enabled);
     }
 
     public function testFixtureIgnoresApiVariables(): void
     {
-        $settings = CatalogSettings::fromEnvironment('dev', 'fixture', 'http://example.test', self::TOKEN, null);
-
-        assertNull($settings->apiBaseUrl);
+        assertNull(CatalogSettings::fromEnvironment('dev', 'fixture', 'http://example.test', null)->apiBaseUrl);
     }
 
     public function testSourceMustBeExplicit(): void
     {
         $this->expectException(InvalidCatalogConfiguration::class);
-        CatalogSettings::fromEnvironment('dev', null, null, null, null);
+        CatalogSettings::fromEnvironment('dev', null, null, null);
     }
 
     public function testUnknownSourceIsRejected(): void
     {
         $this->expectException(InvalidCatalogConfiguration::class);
-        CatalogSettings::fromEnvironment('dev', 'mysql', null, null, null);
+        CatalogSettings::fromEnvironment('dev', 'mysql', null, null);
     }
 
-    public function testHttpsSourceIsAccepted(): void
+    public function testHttpsSourceRequiresSignIn(): void
     {
-        $settings = CatalogSettings::fromEnvironment('prod', 'http', 'https://api.example.test/', self::TOKEN, '2.5');
+        $settings = CatalogSettings::fromEnvironment('prod', 'http', 'https://eoil.example.test/backend/', '2.5');
 
         assertSame(CatalogSource::Http, $settings->source);
         assertFalse($settings->isDemo());
-        assertSame('https://api.example.test', $settings->apiBaseUrl);
-        assertSame(self::TOKEN, $settings->apiToken());
+        assertTrue($settings->requiresSignIn());
+        assertSame('https://eoil.example.test/backend', $settings->apiBaseUrl);
         assertSame(2.5, $settings->timeout);
     }
 
-    public function testPlainHttpToLoopbackIsAcceptedInTestEnvironment(): void
+    /**
+     * @return iterable<string, array{string, string}>
+     */
+    public static function acceptedPlainHttp(): iterable
     {
-        $settings = CatalogSettings::fromEnvironment('test', 'http', 'http://127.0.0.1:8092', self::TOKEN, null);
+        yield 'test on loopback' => ['test', 'http://127.0.0.1:8092'];
+        yield 'dev on localhost' => ['dev', 'http://localhost:8888/eoil/backend/web'];
+        yield 'dev to MAMP from container' => ['dev', 'http://host.docker.internal:8888/eoil/backend/web'];
+    }
 
-        assertSame('http://127.0.0.1:8092', $settings->apiBaseUrl);
+    #[DataProvider('acceptedPlainHttp')]
+    public function testPlainHttpOnlyForLocalDevelopment(string $appEnv, string $url): void
+    {
+        assertSame($url, CatalogSettings::fromEnvironment($appEnv, 'http', $url, null)->apiBaseUrl);
     }
 
     /**
-     * @return iterable<string, array{string, ?string, ?string}>
+     * @return iterable<string, array{string, ?string}>
      */
     public static function invalidHttpConfigurations(): iterable
     {
-        yield 'missing url' => ['dev', null, self::TOKEN];
-        yield 'missing token' => ['dev', 'https://api.example.test', null];
-        yield 'token with space' => ['dev', 'https://api.example.test', 'abc def'];
-        yield 'token with newline' => ['dev', 'https://api.example.test', "abc\r\nX-Injected: 1"];
-        yield 'plain http in dev' => ['dev', 'http://127.0.0.1:8092', self::TOKEN];
-        yield 'plain http in prod' => ['prod', 'http://127.0.0.1:8092', self::TOKEN];
-        yield 'plain http to remote host in test' => ['test', 'http://api.example.test', self::TOKEN];
-        yield 'relative url' => ['dev', '/erp-api', self::TOKEN];
-        yield 'credentials in url' => ['dev', 'https://user:pass@api.example.test', self::TOKEN];
-        yield 'query in url' => ['dev', 'https://api.example.test/?token=x', self::TOKEN];
-        yield 'other scheme' => ['dev', 'ftp://api.example.test', self::TOKEN];
+        yield 'missing url' => ['dev', null];
+        yield 'plain http in prod' => ['prod', 'http://127.0.0.1:8092'];
+        yield 'plain http to remote host in dev' => ['dev', 'http://eoil.example.test'];
+        yield 'plain http to docker host in test' => ['test', 'http://host.docker.internal:8888'];
+        yield 'relative url' => ['dev', '/erp-api'];
+        yield 'credentials in url' => ['dev', 'https://user:pass@eoil.example.test'];
+        yield 'query in url' => ['dev', 'https://eoil.example.test/?token=x'];
+        yield 'other scheme' => ['dev', 'ftp://eoil.example.test'];
     }
 
     #[DataProvider('invalidHttpConfigurations')]
-    public function testInvalidHttpConfigurationIsRejectedWithoutLeakingToken(
-        string $appEnv,
-        ?string $url,
-        ?string $token,
-    ): void {
-        try {
-            CatalogSettings::fromEnvironment($appEnv, 'http', $url, $token, null);
-            $this->fail('Expected InvalidCatalogConfiguration.');
-        } catch (InvalidCatalogConfiguration $e) {
-            if ($token !== null) {
-                assertStringNotContainsString($token, $e->getMessage());
-                // Application frames redact the token (#[SensitiveParameter]); this test's own
-                // frame necessarily receives it from the data provider and is skipped.
-                foreach ($e->getTrace() as $frame) {
-                    if (str_starts_with($frame['class'] ?? '', 'App\\Catalog\\')) {
-                        assertStringNotContainsString($token, print_r($frame['args'] ?? [], true));
-                    }
-                }
-            }
-        }
+    public function testInvalidHttpConfigurationIsRejected(string $appEnv, ?string $url): void
+    {
+        $this->expectException(InvalidCatalogConfiguration::class);
+        CatalogSettings::fromEnvironment($appEnv, 'http', $url, null);
     }
 
     /**
@@ -123,16 +114,70 @@ final class CatalogSettingsTest extends Unit
     public function testInvalidTimeoutIsRejected(string $timeout): void
     {
         $this->expectException(InvalidCatalogConfiguration::class);
-        CatalogSettings::fromEnvironment('dev', 'fixture', null, null, $timeout);
+        CatalogSettings::fromEnvironment('dev', 'fixture', null, $timeout);
     }
 
-    public function testDebugOutputHidesToken(): void
-    {
-        $settings = CatalogSettings::fromEnvironment('prod', 'http', 'https://api.example.test', self::TOKEN, null);
+    // --- sign-in settings -------------------------------------------------------------------
 
-        assertStringNotContainsString(self::TOKEN, print_r($settings, true));
+    private function signIn(array $overrides = []): EoilSignInSettings
+    {
+        $o = $overrides + [
+            'env' => 'dev',
+            'authorize' => 'http://localhost:8888/eoil/backend/web/erp-auth/authorize',
+            'clientId' => null,
+            'secret' => self::SECRET,
+            'redirect' => 'http://127.0.0.1:8089/auth/callback',
+        ];
+        $catalog = CatalogSettings::fromEnvironment($o['env'], 'http', 'http://host.docker.internal:8888/eoil/backend/web', '4');
+
+        return EoilSignInSettings::fromEnvironment($o['env'], $catalog, $o['authorize'], $o['clientId'], $o['secret'], $o['redirect']);
+    }
+
+    public function testSignInSettingsForLocalMamp(): void
+    {
+        $settings = $this->signIn();
+
+        assertTrue($settings->enabled);
+        assertSame('eoil-erp', $settings->clientId);
+        assertSame('http://host.docker.internal:8888/eoil/backend/web/erp-api/v1/auth/token', $settings->tokenUrl);
+        assertSame('http://127.0.0.1:8089/auth/callback', $settings->redirectUri);
+        assertSame(4.0, $settings->timeout);
+        assertSame(self::SECRET, $settings->clientSecret());
+    }
+
+    /**
+     * @return iterable<string, array{array<string, ?string>}>
+     */
+    public static function invalidSignInSettings(): iterable
+    {
+        yield 'missing authorize url' => [['authorize' => null]];
+        yield 'callback on other path' => [['redirect' => 'http://127.0.0.1:8089/callback']];
+        yield 'callback with query' => [['redirect' => 'http://127.0.0.1:8089/auth/callback?x=1']];
+        yield 'remote plain http callback' => [['redirect' => 'http://erp.example.test/auth/callback']];
+        yield 'missing secret' => [['secret' => null]];
+        yield 'short secret' => [['secret' => 'too-short']];
+        yield 'secret with space' => [['secret' => str_repeat('a', 20) . ' ' . str_repeat('b', 20)]];
+        yield 'invalid client id' => [['clientId' => 'eoil erp']];
+    }
+
+    #[DataProvider('invalidSignInSettings')]
+    public function testInvalidSignInSettingsAreRejectedWithoutLeakingSecret(array $overrides): void
+    {
+        try {
+            $this->signIn($overrides);
+            $this->fail('Expected InvalidCatalogConfiguration.');
+        } catch (InvalidCatalogConfiguration $e) {
+            assertStringNotContainsString(self::SECRET, $e->getMessage());
+        }
+    }
+
+    public function testDebugOutputHidesSecret(): void
+    {
+        $settings = $this->signIn();
+
+        assertStringNotContainsString(self::SECRET, print_r($settings, true));
         ob_start();
         var_dump($settings);
-        assertStringNotContainsString(self::TOKEN, (string) ob_get_clean());
+        assertStringNotContainsString(self::SECRET, (string) ob_get_clean());
     }
 }

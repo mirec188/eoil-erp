@@ -21,5 +21,17 @@ return [
             Route::get('/catalog/{id}')
                 ->action(Web\Catalog\DetailAction::class)
                 ->name('catalog/detail'),
+            Route::get('/login')
+                ->action(Web\Auth\LoginAction::class)
+                ->name('auth/login'),
+            Route::get('/login/start')
+                ->action(Web\Auth\StartAction::class)
+                ->name('auth/start'),
+            Route::get('/auth/callback')
+                ->action(Web\Auth\CallbackAction::class)
+                ->name('auth/callback'),
+            Route::post('/logout')
+                ->action(Web\Auth\LogoutAction::class)
+                ->name('auth/logout'),
         ),
 ];

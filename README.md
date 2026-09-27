@@ -5,9 +5,9 @@ Repo má dve oddelené časti:
 1. **Spustiteľná lokálna ukážka** — prvý Yii3 implementačný balík (nižšie).
 2. **Analýza MRP a návrh** — reverzná analýza a architektúra (od časti „Čítať v tomto poradí“).
 
-## Spustiteľná lokálna ukážka (prvý balík, 27. 9. 2026)
+## Spustiteľná lokálna ukážka (prvý balík a M2, 27. 9. 2026)
 
-Samostatná Yii3 aplikácia (PHP 8.4, Docker) so vzhľadom eOil newadmin a **read-only katalógom balení nad ukážkovými (syntetickými) údajmi**. Nie je to produkčná administrácia: nemá prihlásenie, `APP_ENV=prod` odmietne prístup a nič nezapisuje do eOil ani MRP.
+Samostatná Yii3 aplikácia (PHP 8.4, Docker) so vzhľadom eOil newadmin a **read-only katalógom balení**. Predvolene beží nad **ukážkovými (syntetickými) údajmi** bez prihlásenia. S `CATALOG_SOURCE=http` (M2) sa prihlasuje účtom eOil a číta skutočné balenia cez API eOil — zatiaľ iba lokálne proti eOil v MAMP. Nie je to produkčná administrácia: `APP_ENV=prod` odmietne prístup a ERP nič nezapisuje do eOil ani MRP.
 
 ```sh
 docker compose build
@@ -20,10 +20,10 @@ docker compose up -d --wait
 |---|---|
 | Yii3 základ, layout newadmin, `/health` | implementované, overené testami a v prehliadači |
 | Katalóg `/catalog`, detail `/catalog/{id}` | implementované nad **ukážkovými údajmi** |
-| HTTP adaptér na eOil API | implementovaný podľa **návrhu** kontraktu; overený iba na testovom transporte a mocku — eOil endpoint neexistuje |
-| Prihlásenie User, práva, sklady, migrácia | plánované (M2–M4) |
+| Prihlásenie cez eOil a katalóg z eOil API (M2) | implementované na vetvách `codex/eoil-integration` (ERP) a `codex/erp-api-identity` (eOil); overené testami a **lokálnym** end-to-end tokom proti MAMP; nenasadené |
+| Sklady, migrácia | plánované (M3–M4) |
 
-[Lokálne spustenie a testy](docs/development/local-setup.md) · [Návrh API kontraktu](docs/development/catalog-api-contract.md) · [Výsledky overenia](docs/development/foundation-validation.md) · [Pôvod prevzatých súborov](docs/development/theme-provenance.json)
+[Lokálne spustenie a testy](docs/development/local-setup.md) · [Návrh API kontraktu](docs/development/catalog-api-contract.md) · [Výsledky overenia M1](docs/development/foundation-validation.md) · [Výsledky M2](docs/development/m2-validation.md) · [ADR-005 prihlásenie](docs/decisions/005-eoil-sign-in.md) · [Pôvod prevzatých súborov](docs/development/theme-provenance.json)
 
 ## Analýza MRP a návrh
 

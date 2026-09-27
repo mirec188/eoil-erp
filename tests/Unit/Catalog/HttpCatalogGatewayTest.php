@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Catalog;
 
+use App\Catalog\AccessTokenProvider;
+use App\Catalog\CatalogAccessDenied;
+use App\Catalog\CatalogAuthenticationRequired;
 use App\Catalog\CatalogQuery;
 use App\Catalog\CatalogUnavailable;
 use App\Catalog\HttpCatalogGateway;
@@ -108,8 +111,6 @@ final class HttpCatalogGatewayTest extends Unit
             $overrides,
         ));
 
-        yield '401' => [new Response(401, [], '{"error":"unauthorized"}')];
-        yield '403' => [new Response(403)];
         yield '404 on collection' => [new Response(404)];
         yield '500' => [new Response(500, ['Content-Type' => 'text/html'], '<h1>RAW UPSTREAM BODY</h1>')];
         yield '503' => [new Response(503)];
@@ -159,7 +160,6 @@ final class HttpCatalogGatewayTest extends Unit
      */
     public static function failingDetailResponses(): iterable
     {
-        yield '401' => [new Response(401)];
         yield '500' => [new Response(500)];
         yield 'malformed JSON' => [new Response(200, ['Content-Type' => 'application/json'], 'nope')];
         yield 'other id than requested' => [self::json(self::item(102, []))];
@@ -171,6 +171,44 @@ final class HttpCatalogGatewayTest extends Unit
     {
         $this->expectException(CatalogUnavailable::class);
         $this->gateway($response)->get(101);
+    }
+
+    public function test401MeansSignInIsNoLongerValid(): void
+    {
+        $this->expectException(CatalogAuthenticationRequired::class);
+        $this->gateway(new Response(401, ['Content-Type' => 'application/json'], '{"error":"invalid_token"}'))
+            ->search(new CatalogQuery());
+    }
+
+    public function test403MeansAccessWasRevoked(): void
+    {
+        $this->expectException(CatalogAccessDenied::class);
+        $this->gateway(new Response(403, ['Content-Type' => 'application/json'], '{"error":"forbidden"}'))->get(101);
+    }
+
+    public function testNoRequestIsSentWithoutSignIn(): void
+    {
+        $this->history = [];
+        $stack = HandlerStack::create(new MockHandler([self::json([])]));
+        $stack->push(Middleware::history($this->history));
+        $gateway = new HttpCatalogGateway(
+            new Client(['handler' => $stack]),
+            new RequestFactory(),
+            self::BASE_URL,
+            new class implements AccessTokenProvider {
+                public function accessToken(): string
+                {
+                    throw new CatalogAuthenticationRequired();
+                }
+            },
+        );
+
+        try {
+            $gateway->search(new CatalogQuery());
+            $this->fail('Expected CatalogAuthenticationRequired.');
+        } catch (CatalogAuthenticationRequired) {
+        }
+        assertCount(0, $this->history);
     }
 
     public function testOversizedBodyWithKnownSizeIsRejected(): void
@@ -239,7 +277,19 @@ final class HttpCatalogGatewayTest extends Unit
             new Client(['handler' => $stack, 'http_errors' => false, 'allow_redirects' => false]),
             new RequestFactory(),
             self::BASE_URL,
-            self::TOKEN,
+            new class (self::TOKEN) implements AccessTokenProvider {
+                public function __construct(private readonly string $token) {}
+
+                public function accessToken(): string
+                {
+                    return $this->token;
+                }
+
+                public function __debugInfo(): array
+                {
+                    return [];
+                }
+            },
         );
     }
 
