@@ -1,0 +1,1868 @@
+{
+  "years_SKPOH": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, COUNT(*) AS N FROM SKPOH GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2011,
+        "N": 3553
+      },
+      {
+        "YR": 2012,
+        "N": 4549
+      },
+      {
+        "YR": 2013,
+        "N": 5200
+      },
+      {
+        "YR": 2014,
+        "N": 4737
+      },
+      {
+        "YR": 2015,
+        "N": 4097
+      },
+      {
+        "YR": 2016,
+        "N": 3444
+      },
+      {
+        "YR": 2017,
+        "N": 3440
+      },
+      {
+        "YR": 2018,
+        "N": 3869
+      },
+      {
+        "YR": 2019,
+        "N": 4142
+      },
+      {
+        "YR": 2020,
+        "N": 3857
+      },
+      {
+        "YR": 2021,
+        "N": 3750
+      },
+      {
+        "YR": 2022,
+        "N": 3972
+      },
+      {
+        "YR": 2023,
+        "N": 4062
+      },
+      {
+        "YR": 2024,
+        "N": 3662
+      },
+      {
+        "YR": 2025,
+        "N": 10725
+      },
+      {
+        "YR": 2026,
+        "N": 8096
+      }
+    ]
+  },
+  "years_MOARCHIV": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATCAS) AS YR, COUNT(*) AS N FROM MOARCHIV GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2011,
+        "N": 3553
+      },
+      {
+        "YR": 2012,
+        "N": 4549
+      },
+      {
+        "YR": 2013,
+        "N": 5203
+      },
+      {
+        "YR": 2014,
+        "N": 4739
+      },
+      {
+        "YR": 2015,
+        "N": 4097
+      },
+      {
+        "YR": 2016,
+        "N": 3444
+      },
+      {
+        "YR": 2017,
+        "N": 3440
+      },
+      {
+        "YR": 2018,
+        "N": 3869
+      },
+      {
+        "YR": 2019,
+        "N": 4142
+      },
+      {
+        "YR": 2020,
+        "N": 3857
+      },
+      {
+        "YR": 2021,
+        "N": 3754
+      },
+      {
+        "YR": 2022,
+        "N": 3972
+      },
+      {
+        "YR": 2023,
+        "N": 4062
+      },
+      {
+        "YR": 2024,
+        "N": 3662
+      },
+      {
+        "YR": 2025,
+        "N": 3411
+      },
+      {
+        "YR": 2026,
+        "N": 2347
+      }
+    ]
+  },
+  "years_EKASA_LOG": {
+    "sql": "SELECT EXTRACT(YEAR FROM LOG_DATE) AS YR, COUNT(*) AS N FROM EKASA_LOG GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2019,
+        "N": 2195
+      },
+      {
+        "YR": 2020,
+        "N": 3857
+      },
+      {
+        "YR": 2021,
+        "N": 3741
+      },
+      {
+        "YR": 2022,
+        "N": 3962
+      },
+      {
+        "YR": 2023,
+        "N": 4047
+      },
+      {
+        "YR": 2024,
+        "N": 3657
+      },
+      {
+        "YR": 2025,
+        "N": 5699
+      },
+      {
+        "YR": 2026,
+        "N": 4201
+      }
+    ]
+  },
+  "years_FAKVY": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATVYSTAVE) AS YR, COUNT(*) AS N FROM FAKVY GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2010,
+        "N": 3
+      },
+      {
+        "YR": 2011,
+        "N": 1
+      },
+      {
+        "YR": 2012,
+        "N": 2
+      },
+      {
+        "YR": 2013,
+        "N": 2
+      },
+      {
+        "YR": 2019,
+        "N": 2
+      },
+      {
+        "YR": 2020,
+        "N": 3
+      },
+      {
+        "YR": 2021,
+        "N": 12
+      },
+      {
+        "YR": 2022,
+        "N": 15
+      },
+      {
+        "YR": 2023,
+        "N": 4
+      },
+      {
+        "YR": 2024,
+        "N": 105
+      },
+      {
+        "YR": 2025,
+        "N": 2121
+      },
+      {
+        "YR": 2026,
+        "N": 1838
+      }
+    ]
+  },
+  "years_FAKPR": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATVYSTAVE) AS YR, COUNT(*) AS N FROM FAKPR GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2011,
+        "N": 2
+      },
+      {
+        "YR": 2012,
+        "N": 7
+      },
+      {
+        "YR": 2013,
+        "N": 1
+      },
+      {
+        "YR": 2014,
+        "N": 2
+      },
+      {
+        "YR": 2015,
+        "N": 2
+      },
+      {
+        "YR": 2016,
+        "N": 9
+      },
+      {
+        "YR": 2017,
+        "N": 11
+      },
+      {
+        "YR": 2018,
+        "N": 2
+      },
+      {
+        "YR": 2020,
+        "N": 3
+      },
+      {
+        "YR": 2021,
+        "N": 21
+      },
+      {
+        "YR": 2022,
+        "N": 12
+      },
+      {
+        "YR": 2023,
+        "N": 2
+      },
+      {
+        "YR": 2024,
+        "N": 120
+      },
+      {
+        "YR": 2025,
+        "N": 1436
+      },
+      {
+        "YR": 2026,
+        "N": 1120
+      }
+    ]
+  },
+  "years_OBJPR": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, COUNT(*) AS N FROM OBJPR GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": null,
+        "N": 4
+      },
+      {
+        "YR": 2011,
+        "N": 1
+      },
+      {
+        "YR": 2012,
+        "N": 10
+      },
+      {
+        "YR": 2013,
+        "N": 39
+      },
+      {
+        "YR": 2014,
+        "N": 71
+      },
+      {
+        "YR": 2015,
+        "N": 70
+      },
+      {
+        "YR": 2016,
+        "N": 32
+      },
+      {
+        "YR": 2017,
+        "N": 40
+      },
+      {
+        "YR": 2018,
+        "N": 25
+      },
+      {
+        "YR": 2019,
+        "N": 61
+      },
+      {
+        "YR": 2020,
+        "N": 62
+      },
+      {
+        "YR": 2021,
+        "N": 99
+      },
+      {
+        "YR": 2022,
+        "N": 232
+      },
+      {
+        "YR": 2023,
+        "N": 261
+      },
+      {
+        "YR": 2024,
+        "N": 315
+      },
+      {
+        "YR": 2025,
+        "N": 270
+      },
+      {
+        "YR": 2026,
+        "N": 392
+      }
+    ]
+  },
+  "years_OBJVY": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, COUNT(*) AS N FROM OBJVY GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": null,
+        "N": 1
+      },
+      {
+        "YR": 2010,
+        "N": 118
+      },
+      {
+        "YR": 2011,
+        "N": 75
+      },
+      {
+        "YR": 2012,
+        "N": 212
+      },
+      {
+        "YR": 2013,
+        "N": 394
+      },
+      {
+        "YR": 2014,
+        "N": 375
+      },
+      {
+        "YR": 2015,
+        "N": 272
+      },
+      {
+        "YR": 2016,
+        "N": 159
+      },
+      {
+        "YR": 2017,
+        "N": 113
+      },
+      {
+        "YR": 2018,
+        "N": 128
+      },
+      {
+        "YR": 2019,
+        "N": 156
+      },
+      {
+        "YR": 2020,
+        "N": 129
+      },
+      {
+        "YR": 2021,
+        "N": 429
+      },
+      {
+        "YR": 2022,
+        "N": 452
+      },
+      {
+        "YR": 2023,
+        "N": 567
+      },
+      {
+        "YR": 2024,
+        "N": 667
+      },
+      {
+        "YR": 2025,
+        "N": 754
+      },
+      {
+        "YR": 2026,
+        "N": 558
+      }
+    ]
+  },
+  "years_OSPOH": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATVYSTAVE) AS YR, COUNT(*) AS N FROM OSPOH GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2014,
+        "N": 909
+      },
+      {
+        "YR": 2015,
+        "N": 889
+      },
+      {
+        "YR": 2016,
+        "N": 853
+      },
+      {
+        "YR": 2017,
+        "N": 992
+      },
+      {
+        "YR": 2018,
+        "N": 1236
+      },
+      {
+        "YR": 2019,
+        "N": 1426
+      },
+      {
+        "YR": 2020,
+        "N": 1591
+      },
+      {
+        "YR": 2021,
+        "N": 332
+      },
+      {
+        "YR": 2022,
+        "N": 122
+      },
+      {
+        "YR": 2023,
+        "N": 151
+      },
+      {
+        "YR": 2024,
+        "N": 18
+      },
+      {
+        "YR": 2025,
+        "N": 25
+      },
+      {
+        "YR": 2026,
+        "N": 88
+      }
+    ]
+  },
+  "years_PENDE": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, COUNT(*) AS N FROM PENDE GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2011,
+        "N": 3
+      },
+      {
+        "YR": 2012,
+        "N": 8
+      },
+      {
+        "YR": 2013,
+        "N": 4
+      },
+      {
+        "YR": 2015,
+        "N": 5
+      },
+      {
+        "YR": 2016,
+        "N": 2
+      },
+      {
+        "YR": 2019,
+        "N": 2
+      },
+      {
+        "YR": 2020,
+        "N": 4
+      },
+      {
+        "YR": 2021,
+        "N": 13
+      },
+      {
+        "YR": 2022,
+        "N": 7
+      },
+      {
+        "YR": 2023,
+        "N": 2
+      },
+      {
+        "YR": 2024,
+        "N": 6
+      },
+      {
+        "YR": 2025,
+        "N": 2051
+      },
+      {
+        "YR": 2026,
+        "N": 1710
+      }
+    ]
+  },
+  "years_POKL": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATVYSTAVE) AS YR, COUNT(*) AS N FROM POKL GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2025,
+        "N": 13
+      },
+      {
+        "YR": 2026,
+        "N": 6
+      }
+    ]
+  },
+  "years_ZAPOCTY": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATVYSTAVE) AS YR, COUNT(*) AS N FROM ZAPOCTY GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2020,
+        "N": 3
+      },
+      {
+        "YR": 2021,
+        "N": 11
+      },
+      {
+        "YR": 2022,
+        "N": 6
+      },
+      {
+        "YR": 2023,
+        "N": 2
+      },
+      {
+        "YR": 2024,
+        "N": 6
+      },
+      {
+        "YR": 2025,
+        "N": 16
+      }
+    ]
+  },
+  "years_SKKARINV": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, COUNT(*) AS N FROM SKKARINV GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2011,
+        "N": 1
+      },
+      {
+        "YR": 2012,
+        "N": 1
+      },
+      {
+        "YR": 2013,
+        "N": 1
+      },
+      {
+        "YR": 2014,
+        "N": 1
+      },
+      {
+        "YR": 2015,
+        "N": 2
+      },
+      {
+        "YR": 2017,
+        "N": 2
+      },
+      {
+        "YR": 2018,
+        "N": 1
+      },
+      {
+        "YR": 2019,
+        "N": 1
+      },
+      {
+        "YR": 2020,
+        "N": 1
+      },
+      {
+        "YR": 2021,
+        "N": 2
+      },
+      {
+        "YR": 2022,
+        "N": 2
+      },
+      {
+        "YR": 2023,
+        "N": 2
+      },
+      {
+        "YR": 2024,
+        "N": 3
+      },
+      {
+        "YR": 2025,
+        "N": 2
+      }
+    ]
+  },
+  "years_DOCSTORE": {
+    "sql": "SELECT EXTRACT(YEAR FROM LOG_DATE) AS YR, COUNT(*) AS N FROM DOCSTORE GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2019,
+        "N": 1
+      },
+      {
+        "YR": 2021,
+        "N": 8
+      },
+      {
+        "YR": 2022,
+        "N": 16
+      },
+      {
+        "YR": 2023,
+        "N": 6
+      },
+      {
+        "YR": 2024,
+        "N": 66
+      },
+      {
+        "YR": 2025,
+        "N": 1335
+      },
+      {
+        "YR": 2026,
+        "N": 458
+      }
+    ]
+  },
+  "years_EMAILLST": {
+    "sql": "SELECT EXTRACT(YEAR FROM LOG_DATE) AS YR, COUNT(*) AS N FROM EMAILLST GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2015,
+        "N": 1
+      },
+      {
+        "YR": 2021,
+        "N": 110
+      },
+      {
+        "YR": 2022,
+        "N": 155
+      },
+      {
+        "YR": 2023,
+        "N": 130
+      },
+      {
+        "YR": 2024,
+        "N": 343
+      },
+      {
+        "YR": 2025,
+        "N": 549
+      },
+      {
+        "YR": 2026,
+        "N": 525
+      }
+    ]
+  },
+  "movement_types": {
+    "sql": "SELECT p.JEPRIJEM, p.DRUHPOHYBU, d.NAZOV, COUNT(*) AS N, SUM(CASE WHEN p.DATUM >= DATE '2025-01-01' THEN 1 ELSE 0 END) AS SINCE_2025, MAX(p.DATUM) AS LAST_DATE FROM SKPOH p LEFT JOIN SKDRUPOH d ON d.JEPRIJEM=p.JEPRIJEM AND d.CISLO=p.DRUHPOHYBU GROUP BY 1,2,3 ORDER BY 1,2",
+    "rows": [
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": null,
+        "NAZOV": null,
+        "N": 506,
+        "SINCE_2025": 505,
+        "LAST_DATE": "2026-09-24"
+      },
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": 1,
+        "NAZOV": "Vydaj hotovost",
+        "N": 66154,
+        "SINCE_2025": 9826,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": 2,
+        "NAZOV": "Výdaj na FA",
+        "N": 4520,
+        "SINCE_2025": 4515,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": 4,
+        "NAZOV": "Výdaj opravný doklad",
+        "N": 149,
+        "SINCE_2025": 149,
+        "LAST_DATE": "2026-09-23"
+      },
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": 5,
+        "NAZOV": "VNUTORNA SPOTREBA",
+        "N": 153,
+        "SINCE_2025": 153,
+        "LAST_DATE": "2026-09-24"
+      },
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": 9,
+        "NAZOV": "preskladnenie medzi skladmi",
+        "N": 19,
+        "SINCE_2025": 19,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "JEPRIJEM": "F",
+        "DRUHPOHYBU": 10,
+        "NAZOV": "reklamne predmety",
+        "N": 1,
+        "SINCE_2025": 1,
+        "LAST_DATE": "2026-03-17"
+      },
+      {
+        "JEPRIJEM": "T",
+        "DRUHPOHYBU": null,
+        "NAZOV": null,
+        "N": 444,
+        "SINCE_2025": 444,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "JEPRIJEM": "T",
+        "DRUHPOHYBU": 1,
+        "NAZOV": "Prijem na FA",
+        "N": 2959,
+        "SINCE_2025": 2959,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "JEPRIJEM": "T",
+        "DRUHPOHYBU": 2,
+        "NAZOV": "Prijem hotovost",
+        "N": 98,
+        "SINCE_2025": 98,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "JEPRIJEM": "T",
+        "DRUHPOHYBU": 4,
+        "NAZOV": "Opravný doklad",
+        "N": 139,
+        "SINCE_2025": 139,
+        "LAST_DATE": "2026-09-23"
+      },
+      {
+        "JEPRIJEM": "T",
+        "DRUHPOHYBU": 6,
+        "NAZOV": "Prijem preskladnenie",
+        "N": 13,
+        "SINCE_2025": 13,
+        "LAST_DATE": "2026-07-14"
+      }
+    ]
+  },
+  "warehouses": {
+    "sql": "SELECT s.CISLO, COUNT(p.IDPOH) AS MOVEMENTS, MAX(p.DATUM) AS LAST_DATE FROM SKLADY s LEFT JOIN SKPOH p ON p.CISLOSKL=s.CISLO GROUP BY s.CISLO ORDER BY s.CISLO",
+    "rows": [
+      {
+        "CISLO": 1,
+        "MOVEMENTS": 52771,
+        "LAST_DATE": "2026-09-25"
+      },
+      {
+        "CISLO": 2,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 3,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 4,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 5,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 6,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 7,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 8,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 9,
+        "MOVEMENTS": 0,
+        "LAST_DATE": null
+      },
+      {
+        "CISLO": 10,
+        "MOVEMENTS": 22384,
+        "LAST_DATE": "2026-09-25"
+      }
+    ]
+  },
+  "stock_balance": {
+    "sql": "SELECT CISLOSKL, COUNT(*) AS CARD_ROWS, SUM(CASE WHEN POCETMJ<>0 THEN 1 ELSE 0 END) AS NONZERO, SUM(CASE WHEN POCETMJ<0 THEN 1 ELSE 0 END) AS NEGATIVE_ROWS, SUM(CASE WHEN POCREZMJ<>0 THEN 1 ELSE 0 END) AS RESERVED_ROWS FROM SKKARSTA GROUP BY CISLOSKL ORDER BY CISLOSKL",
+    "rows": [
+      {
+        "CISLOSKL": 1,
+        "CARD_ROWS": 9775,
+        "NONZERO": 1162,
+        "NEGATIVE_ROWS": 70,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 2,
+        "CARD_ROWS": 8229,
+        "NONZERO": 5,
+        "NEGATIVE_ROWS": 1,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 3,
+        "CARD_ROWS": 8093,
+        "NONZERO": 4,
+        "NEGATIVE_ROWS": 2,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 4,
+        "CARD_ROWS": 8067,
+        "NONZERO": 0,
+        "NEGATIVE_ROWS": 0,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 5,
+        "CARD_ROWS": 8141,
+        "NONZERO": 30,
+        "NEGATIVE_ROWS": 5,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 6,
+        "CARD_ROWS": 7835,
+        "NONZERO": 12,
+        "NEGATIVE_ROWS": 0,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 7,
+        "CARD_ROWS": 7702,
+        "NONZERO": 5,
+        "NEGATIVE_ROWS": 0,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 8,
+        "CARD_ROWS": 6852,
+        "NONZERO": 0,
+        "NEGATIVE_ROWS": 0,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 9,
+        "CARD_ROWS": 5315,
+        "NONZERO": 1,
+        "NEGATIVE_ROWS": 1,
+        "RESERVED_ROWS": 0
+      },
+      {
+        "CISLOSKL": 10,
+        "CARD_ROWS": 5822,
+        "NONZERO": 1063,
+        "NEGATIVE_ROWS": 62,
+        "RESERVED_ROWS": 1
+      }
+    ]
+  },
+  "dist_SKKAR_TYPKARTY": {
+    "sql": "SELECT TYPKARTY AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY TYPKARTY ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 0,
+        "N": 10638
+      }
+    ]
+  },
+  "dist_SKKAR_MJ": {
+    "sql": "SELECT MJ AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY MJ ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "L",
+        "N": 3853
+      },
+      {
+        "VALUE_CODE": "ks",
+        "N": 3576
+      },
+      {
+        "VALUE_CODE": "Ks",
+        "N": 918
+      },
+      {
+        "VALUE_CODE": "KS",
+        "N": 894
+      },
+      {
+        "VALUE_CODE": "",
+        "N": 402
+      },
+      {
+        "VALUE_CODE": "l",
+        "N": 337
+      },
+      {
+        "VALUE_CODE": "kg",
+        "N": 300
+      },
+      {
+        "VALUE_CODE": "Kg",
+        "N": 223
+      },
+      {
+        "VALUE_CODE": "pár",
+        "N": 63
+      },
+      {
+        "VALUE_CODE": "KG",
+        "N": 56
+      },
+      {
+        "VALUE_CODE": "kar",
+        "N": 4
+      },
+      {
+        "VALUE_CODE": "KUS",
+        "N": 3
+      },
+      {
+        "VALUE_CODE": "SAD",
+        "N": 2
+      },
+      {
+        "VALUE_CODE": "1",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "20",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "ka",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "ml",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "316",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "bal",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "kus",
+        "N": 1
+      }
+    ]
+  },
+  "dist_SKKAR_SADZBADPH": {
+    "sql": "SELECT SADZBADPH AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY SADZBADPH ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "23.00",
+        "N": 10528
+      },
+      {
+        "VALUE_CODE": "0.00",
+        "N": 96
+      },
+      {
+        "VALUE_CODE": "20.00",
+        "N": 7
+      },
+      {
+        "VALUE_CODE": "5.00",
+        "N": 4
+      },
+      {
+        "VALUE_CODE": "19.00",
+        "N": 3
+      }
+    ]
+  },
+  "dist_SKKAR_POUZIVANA": {
+    "sql": "SELECT POUZIVANA AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY POUZIVANA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "T",
+        "N": 10632
+      },
+      {
+        "VALUE_CODE": "F",
+        "N": 6
+      }
+    ]
+  },
+  "dist_SKKAR_PUBLIKOVAT": {
+    "sql": "SELECT PUBLIKOVAT AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY PUBLIKOVAT ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 10638
+      }
+    ]
+  },
+  "dist_SKKAR_DOMINUSU": {
+    "sql": "SELECT DOMINUSU AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY DOMINUSU ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "T",
+        "N": 10637
+      },
+      {
+        "VALUE_CODE": "F",
+        "N": 1
+      }
+    ]
+  },
+  "dist_SKKAR_BALENIE": {
+    "sql": "SELECT BALENIE AS VALUE_CODE, COUNT(*) AS N FROM SKKAR GROUP BY BALENIE ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "0.000000",
+        "N": 10620
+      },
+      {
+        "VALUE_CODE": "20.000000",
+        "N": 6
+      },
+      {
+        "VALUE_CODE": "208.000000",
+        "N": 6
+      },
+      {
+        "VALUE_CODE": "60.000000",
+        "N": 2
+      },
+      {
+        "VALUE_CODE": "12.000000",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "16.000000",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "50.000000",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "209.000000",
+        "N": 1
+      }
+    ]
+  },
+  "dist_SKPOH_JEPLATNY": {
+    "sql": "SELECT JEPLATNY AS VALUE_CODE, COUNT(*) AS N FROM SKPOH GROUP BY JEPLATNY ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "O",
+        "N": 56334
+      },
+      {
+        "VALUE_CODE": "T",
+        "N": 18821
+      }
+    ]
+  },
+  "dist_SKPOH_STORNO": {
+    "sql": "SELECT STORNO AS VALUE_CODE, COUNT(*) AS N FROM SKPOH GROUP BY STORNO ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "-",
+        "N": 75112
+      },
+      {
+        "VALUE_CODE": "S",
+        "N": 35
+      },
+      {
+        "VALUE_CODE": "U",
+        "N": 8
+      }
+    ]
+  },
+  "dist_SKPOH_OCENENO": {
+    "sql": "SELECT OCENENO AS VALUE_CODE, COUNT(*) AS N FROM SKPOH GROUP BY OCENENO ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 72002
+      },
+      {
+        "VALUE_CODE": "T",
+        "N": 3153
+      }
+    ]
+  },
+  "dist_SKPOH_MENA": {
+    "sql": "SELECT MENA AS VALUE_CODE, COUNT(*) AS N FROM SKPOH GROUP BY MENA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "EUR",
+        "N": 75155
+      }
+    ]
+  },
+  "dist_SKPOH_DRUH": {
+    "sql": "SELECT DRUH AS VALUE_CODE, COUNT(*) AS N FROM SKPOH GROUP BY DRUH ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "V",
+        "N": 62092
+      },
+      {
+        "VALUE_CODE": "P",
+        "N": 12155
+      },
+      {
+        "VALUE_CODE": "M",
+        "N": 858
+      },
+      {
+        "VALUE_CODE": "C",
+        "N": 46
+      },
+      {
+        "VALUE_CODE": "I",
+        "N": 4
+      }
+    ]
+  },
+  "dist_SKPOH_ZAUC_FISK": {
+    "sql": "SELECT ZAUC_FISK AS VALUE_CODE, COUNT(*) AS N FROM SKPOH GROUP BY ZAUC_FISK ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "T",
+        "N": 65957
+      },
+      {
+        "VALUE_CODE": "F",
+        "N": 9198
+      }
+    ]
+  },
+  "dist_OBJPR_NABIDKA": {
+    "sql": "SELECT NABIDKA AS VALUE_CODE, COUNT(*) AS N FROM OBJPR GROUP BY NABIDKA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "T",
+        "N": 1962
+      },
+      {
+        "VALUE_CODE": "F",
+        "N": 22
+      }
+    ]
+  },
+  "dist_OBJPR_VYBAVENE": {
+    "sql": "SELECT VYBAVENE AS VALUE_CODE, COUNT(*) AS N FROM OBJPR GROUP BY VYBAVENE ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 2,
+        "N": 1979
+      },
+      {
+        "VALUE_CODE": 0,
+        "N": 5
+      }
+    ]
+  },
+  "dist_OBJPR_REZNASKLAD": {
+    "sql": "SELECT REZNASKLAD AS VALUE_CODE, COUNT(*) AS N FROM OBJPR GROUP BY REZNASKLAD ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 1983
+      },
+      {
+        "VALUE_CODE": "T",
+        "N": 1
+      }
+    ]
+  },
+  "dist_OBJVY_POPTAVKA": {
+    "sql": "SELECT POPTAVKA AS VALUE_CODE, COUNT(*) AS N FROM OBJVY GROUP BY POPTAVKA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 5559
+      }
+    ]
+  },
+  "dist_OBJVY_VYBAVENE": {
+    "sql": "SELECT VYBAVENE AS VALUE_CODE, COUNT(*) AS N FROM OBJVY GROUP BY VYBAVENE ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 2,
+        "N": 5547
+      },
+      {
+        "VALUE_CODE": -2,
+        "N": 5
+      },
+      {
+        "VALUE_CODE": 1,
+        "N": 4
+      },
+      {
+        "VALUE_CODE": 0,
+        "N": 3
+      }
+    ]
+  },
+  "dist_FAKVY_DRUH": {
+    "sql": "SELECT DRUH AS VALUE_CODE, COUNT(*) AS N FROM FAKVY GROUP BY DRUH ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 4077
+      },
+      {
+        "VALUE_CODE": "X",
+        "N": 31
+      }
+    ]
+  },
+  "dist_FAKVY_TYP_DOKL": {
+    "sql": "SELECT TYP_DOKL AS VALUE_CODE, COUNT(*) AS N FROM FAKVY GROUP BY TYP_DOKL ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "",
+        "N": 4083
+      },
+      {
+        "VALUE_CODE": "D",
+        "N": 25
+      }
+    ]
+  },
+  "dist_FAKVY_FORMAUHRAD": {
+    "sql": "SELECT FORMAUHRAD AS VALUE_CODE, COUNT(*) AS N FROM FAKVY GROUP BY FORMAUHRAD ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "p.p.",
+        "N": 3288
+      },
+      {
+        "VALUE_CODE": "dobierka",
+        "N": 450
+      },
+      {
+        "VALUE_CODE": "kartou int",
+        "N": 173
+      },
+      {
+        "VALUE_CODE": "hotovosť",
+        "N": 87
+      },
+      {
+        "VALUE_CODE": "pp",
+        "N": 81
+      },
+      {
+        "VALUE_CODE": "PP",
+        "N": 15
+      },
+      {
+        "VALUE_CODE": "predfaktúr",
+        "N": 9
+      },
+      {
+        "VALUE_CODE": "",
+        "N": 3
+      },
+      {
+        "VALUE_CODE": "14",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "záloha Fa",
+        "N": 1
+      }
+    ]
+  },
+  "dist_FAKVY_MENA": {
+    "sql": "SELECT MENA AS VALUE_CODE, COUNT(*) AS N FROM FAKVY GROUP BY MENA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "EUR",
+        "N": 4108
+      }
+    ]
+  },
+  "dist_FAKVY_STORNO_FA": {
+    "sql": "SELECT STORNO_FA AS VALUE_CODE, COUNT(*) AS N FROM FAKVY GROUP BY STORNO_FA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "",
+        "N": 4108
+      }
+    ]
+  },
+  "dist_FAKPR_DRUH": {
+    "sql": "SELECT DRUH AS VALUE_CODE, COUNT(*) AS N FROM FAKPR GROUP BY DRUH ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 2700
+      },
+      {
+        "VALUE_CODE": "X",
+        "N": 50
+      }
+    ]
+  },
+  "dist_FAKPR_FORMAUHRAD": {
+    "sql": "SELECT FORMAUHRAD AS VALUE_CODE, COUNT(*) AS N FROM FAKPR GROUP BY FORMAUHRAD ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "p.p.",
+        "N": 2714
+      },
+      {
+        "VALUE_CODE": "hotovosť",
+        "N": 29
+      },
+      {
+        "VALUE_CODE": "osobne",
+        "N": 5
+      },
+      {
+        "VALUE_CODE": "PP",
+        "N": 1
+      },
+      {
+        "VALUE_CODE": "dobierka",
+        "N": 1
+      }
+    ]
+  },
+  "dist_FAKPR_MENA": {
+    "sql": "SELECT MENA AS VALUE_CODE, COUNT(*) AS N FROM FAKPR GROUP BY MENA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "EUR",
+        "N": 2750
+      }
+    ]
+  },
+  "dist_FAKVYUHR_ZPUSOBUHR": {
+    "sql": "SELECT ZPUSOBUHR AS VALUE_CODE, COUNT(*) AS N FROM FAKVYUHR GROUP BY ZPUSOBUHR ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 1,
+        "N": 3907
+      },
+      {
+        "VALUE_CODE": 2,
+        "N": 170
+      }
+    ]
+  },
+  "dist_FAKVYUHR_UHRADAFM": {
+    "sql": "SELECT UHRADAFM AS VALUE_CODE, COUNT(*) AS N FROM FAKVYUHR GROUP BY UHRADAFM ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 3908
+      },
+      {
+        "VALUE_CODE": "T",
+        "N": 169
+      }
+    ]
+  },
+  "dist_FAKPRUHR_ZPUSOBUHR": {
+    "sql": "SELECT ZPUSOBUHR AS VALUE_CODE, COUNT(*) AS N FROM FAKPRUHR GROUP BY ZPUSOBUHR ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 1,
+        "N": 2690
+      },
+      {
+        "VALUE_CODE": 2,
+        "N": 1
+      }
+    ]
+  },
+  "dist_MOPLATBY_TYP": {
+    "sql": "SELECT TYP AS VALUE_CODE, COUNT(*) AS N FROM MOPLATBY GROUP BY TYP ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 1,
+        "N": 42459
+      },
+      {
+        "VALUE_CODE": 3,
+        "N": 19525
+      },
+      {
+        "VALUE_CODE": 0,
+        "N": 2
+      }
+    ]
+  },
+  "dist_MOPLATBY_MENA": {
+    "sql": "SELECT MENA AS VALUE_CODE, COUNT(*) AS N FROM MOPLATBY GROUP BY MENA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "EUR",
+        "N": 61986
+      }
+    ]
+  },
+  "dist_MOPLATBY_CARDPOS": {
+    "sql": "SELECT CARDPOS AS VALUE_CODE, COUNT(*) AS N FROM MOPLATBY GROUP BY CARDPOS ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": null,
+        "N": 61986
+      }
+    ]
+  },
+  "dist_EKASA_LOG_REC_TYPE": {
+    "sql": "SELECT REC_TYPE AS VALUE_CODE, COUNT(*) AS N FROM EKASA_LOG GROUP BY REC_TYPE ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "PD",
+        "N": 31182
+      },
+      {
+        "VALUE_CODE": "UF",
+        "N": 177
+      }
+    ]
+  },
+  "dist_EKASA_LOG_STATE": {
+    "sql": "SELECT STATE AS VALUE_CODE, COUNT(*) AS N FROM EKASA_LOG GROUP BY STATE ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 200,
+        "N": 11279
+      },
+      {
+        "VALUE_CODE": 6,
+        "N": 10807
+      },
+      {
+        "VALUE_CODE": 17,
+        "N": 9173
+      },
+      {
+        "VALUE_CODE": 201,
+        "N": 100
+      }
+    ]
+  },
+  "dist_EKASA_LOG_TYP_EKASY": {
+    "sql": "SELECT TYP_EKASY AS VALUE_CODE, COUNT(*) AS N FROM EKASA_LOG GROUP BY TYP_EKASY ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 59,
+        "N": 19980
+      },
+      {
+        "VALUE_CODE": 58,
+        "N": 7669
+      },
+      {
+        "VALUE_CODE": 0,
+        "N": 3710
+      }
+    ]
+  },
+  "dist_OSPOH_TYP": {
+    "sql": "SELECT TYP AS VALUE_CODE, COUNT(*) AS N FROM OSPOH GROUP BY TYP ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "Ostatne",
+        "N": 8632
+      }
+    ]
+  },
+  "dist_OSPOH_TYP_DOKL": {
+    "sql": "SELECT TYP_DOKL AS VALUE_CODE, COUNT(*) AS N FROM OSPOH GROUP BY TYP_DOKL ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "",
+        "N": 8632
+      }
+    ]
+  },
+  "dist_PENDE_ZDROJ": {
+    "sql": "SELECT SUBSTRING(ZDROJ FROM 1 FOR 2) AS SOURCE_PREFIX, COUNT(*) AS N FROM PENDE GROUP BY 1",
+    "rows": [
+      {
+        "SOURCE_PREFIX": "FP",
+        "N": 14
+      },
+      {
+        "SOURCE_PREFIX": "FV",
+        "N": 3803
+      }
+    ]
+  },
+  "dist_DOCSTORE_ATYPE": {
+    "sql": "SELECT ATYPE AS VALUE_CODE, COUNT(*) AS N FROM DOCSTORE GROUP BY ATYPE ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 2,
+        "N": 1873
+      },
+      {
+        "VALUE_CODE": 1,
+        "N": 17
+      }
+    ]
+  },
+  "dist_FAKVYPOL_TYP_RADKU": {
+    "sql": "SELECT TYP_RADKU AS VALUE_CODE, COUNT(*) AS N FROM FAKVYPOL GROUP BY TYP_RADKU ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 1,
+        "N": 10133
+      },
+      {
+        "VALUE_CODE": 2,
+        "N": 1213
+      }
+    ]
+  },
+  "dist_OBJPRPOL_TYP_RADKU": {
+    "sql": "SELECT TYP_RADKU AS VALUE_CODE, COUNT(*) AS N FROM OBJPRPOL GROUP BY TYP_RADKU ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 1,
+        "N": 4185
+      },
+      {
+        "VALUE_CODE": 2,
+        "N": 1992
+      }
+    ]
+  },
+  "dist_SKKARINV_PLATNA": {
+    "sql": "SELECT PLATNA AS VALUE_CODE, COUNT(*) AS N FROM SKKARINV GROUP BY PLATNA ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "T",
+        "N": 21
+      },
+      {
+        "VALUE_CODE": "F",
+        "N": 1
+      }
+    ]
+  },
+  "dist_ADRES_ODBERATEL": {
+    "sql": "SELECT ODBERATEL AS VALUE_CODE, COUNT(*) AS N FROM ADRES GROUP BY ODBERATEL ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 6782
+      }
+    ]
+  },
+  "dist_ADRES_DODAVATEL": {
+    "sql": "SELECT DODAVATEL AS VALUE_CODE, COUNT(*) AS N FROM ADRES GROUP BY DODAVATEL ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": "F",
+        "N": 6782
+      }
+    ]
+  },
+  "dist_ADRES_TEMP_REC": {
+    "sql": "SELECT TEMP_REC AS VALUE_CODE, COUNT(*) AS N FROM ADRES GROUP BY TEMP_REC ORDER BY 2 DESC ROWS 50",
+    "rows": [
+      {
+        "VALUE_CODE": 0,
+        "N": 6782
+      }
+    ]
+  },
+  "links_SKPOH": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDFAKVY) AS IDFAKVY, COUNT(IDFAKPR) AS IDFAKPR, COUNT(IDOSPOH) AS IDOSPOH, COUNT(IDPOKDOK) AS IDPOKDOK FROM SKPOH",
+    "rows": [
+      {
+        "TOTAL": 75155,
+        "IDFAKVY": 4622,
+        "IDFAKPR": 2945,
+        "IDOSPOH": 0,
+        "IDPOKDOK": 0
+      }
+    ]
+  },
+  "links_SKPOHPOL": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDOBJPRPOL) AS IDOBJPRPOL, COUNT(IDOBJVYPOL) AS IDOBJVYPOL, COUNT(IDPOHPOLM) AS IDPOHPOLM, COUNT(IDPOHPOLR) AS IDPOHPOLR FROM SKPOHPOL",
+    "rows": [
+      {
+        "TOTAL": 124059,
+        "IDOBJPRPOL": 0,
+        "IDOBJVYPOL": 0,
+        "IDPOHPOLM": 0,
+        "IDPOHPOLR": 0
+      }
+    ]
+  },
+  "links_FAKVYPOL": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDSKPOH) AS IDSKPOH, COUNT(IDSKPOHPOL) AS IDSKPOHPOL, COUNT(IDOBJPOL) AS IDOBJPOL, COUNT(CISLOKAR) AS CISLOKAR FROM FAKVYPOL",
+    "rows": [
+      {
+        "TOTAL": 11346,
+        "IDSKPOH": 9733,
+        "IDSKPOHPOL": 9733,
+        "IDOBJPOL": 0,
+        "CISLOKAR": 9017
+      }
+    ]
+  },
+  "links_FAKPRPOL": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDSKPOH) AS IDSKPOH, COUNT(IDSKPOHPOL) AS IDSKPOHPOL, COUNT(IDOBJPOL) AS IDOBJPOL, COUNT(CISLOKAR) AS CISLOKAR FROM FAKPRPOL",
+    "rows": [
+      {
+        "TOTAL": 12227,
+        "IDSKPOH": 10140,
+        "IDSKPOHPOL": 10140,
+        "IDOBJPOL": 0,
+        "CISLOKAR": 10685
+      }
+    ]
+  },
+  "links_OBJPRPOL": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDOBJVYPOL) AS IDOBJVYPOL, COUNT(IDRPOLR) AS IDRPOLR, COUNT(IDNABPOL) AS IDNABPOL, COUNT(IDRKAR) AS IDRKAR FROM OBJPRPOL",
+    "rows": [
+      {
+        "TOTAL": 6177,
+        "IDOBJVYPOL": 5,
+        "IDRPOLR": 0,
+        "IDNABPOL": 8,
+        "IDRKAR": 4156
+      }
+    ]
+  },
+  "links_EKASA_LOG": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(ID_FV) AS ID_FV, COUNT(ID_SV) AS ID_SV, COUNT(ID_MO) AS ID_MO FROM EKASA_LOG",
+    "rows": [
+      {
+        "TOTAL": 31359,
+        "ID_FV": 177,
+        "ID_SV": 4154,
+        "ID_MO": 27028
+      }
+    ]
+  },
+  "links_PENDE": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDUHR_FV) AS IDUHR_FV, COUNT(IDUHR_FP) AS IDUHR_FP, COUNT(IDPOKDOK) AS IDPOKDOK, COUNT(IDBANOBRAT) AS IDBANOBRAT FROM PENDE",
+    "rows": [
+      {
+        "TOTAL": 3817,
+        "IDUHR_FV": 3803,
+        "IDUHR_FP": 14,
+        "IDPOKDOK": 1,
+        "IDBANOBRAT": 0
+      }
+    ]
+  },
+  "links_FAKVYUHR": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDBANOBRAT) AS IDBANOBRAT, COUNT(IDZAPOCPOL) AS IDZAPOCPOL, COUNT(IDPOKDOK) AS IDPOKDOK FROM FAKVYUHR",
+    "rows": [
+      {
+        "TOTAL": 4077,
+        "IDBANOBRAT": 0,
+        "IDZAPOCPOL": 0,
+        "IDPOKDOK": 17
+      }
+    ]
+  },
+  "links_MOARCHIV": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDPOH) AS IDPOH, COUNT(STORNOID) AS STORNOID FROM MOARCHIV",
+    "rows": [
+      {
+        "TOTAL": 62101,
+        "IDPOH": 62092,
+        "STORNOID": 62101
+      }
+    ]
+  },
+  "card_identity": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(DISTINCT CISLO) AS DISTINCT_NUMBER, COUNT(DISTINCT IDR) AS DISTINCT_ID, SUM(CASE WHEN CISLO<>FLOOR(CISLO) THEN 1 ELSE 0 END) AS FRACTIONAL_NUMBERS FROM SKKAR",
+    "rows": [
+      {
+        "TOTAL": 10638,
+        "DISTINCT_NUMBER": 10638,
+        "DISTINCT_ID": 10638,
+        "FRACTIONAL_NUMBERS": 16
+      }
+    ]
+  },
+  "ean_duplicates": {
+    "sql": "SELECT COUNT(*) AS DUPLICATE_CODES, SUM(N) AS AFFECTED_CARDS FROM (SELECT KOD, COUNT(*) AS N FROM SKKAR WHERE KOD IS NOT NULL AND TRIM(KOD)<>'' GROUP BY KOD HAVING COUNT(*)>1)",
+    "rows": [
+      {
+        "DUPLICATE_CODES": 134,
+        "AFFECTED_CARDS": 336
+      }
+    ]
+  },
+  "order_links_state": {
+    "sql": "SELECT COUNT(*) AS LINES, SUM(CASE WHEN UZVYBMJ>0 AND UZVYBMJ<POCETMJ THEN 1 ELSE 0 END) AS PARTIALLY_FILLED, SUM(CASE WHEN POCREZMJ<>0 THEN 1 ELSE 0 END) AS RESERVED_LINES FROM OBJPRPOL",
+    "rows": [
+      {
+        "LINES": 6177,
+        "PARTIALLY_FILLED": 0,
+        "RESERVED_LINES": 2
+      }
+    ]
+  },
+  "attachment_bytes": {
+    "sql": "SELECT COUNT(*) AS N, SUM(OCTET_LENGTH(DOCCONTENT)) AS BLOB_BYTES FROM DOCSTORE",
+    "rows": [
+      {
+        "N": 1890,
+        "BLOB_BYTES": 100068479
+      }
+    ]
+  },
+  "vat_lines": {
+    "sql": "SELECT SADZBADPH, COUNT(*) AS N FROM FAKVYPOL GROUP BY SADZBADPH ORDER BY SADZBADPH",
+    "rows": [
+      {
+        "SADZBADPH": "0.00",
+        "N": 1809
+      },
+      {
+        "SADZBADPH": "5.00",
+        "N": 5
+      },
+      {
+        "SADZBADPH": "19.00",
+        "N": 5
+      },
+      {
+        "SADZBADPH": "20.00",
+        "N": 360
+      },
+      {
+        "SADZBADPH": "23.00",
+        "N": 9167
+      }
+    ]
+  },
+  "recent_invoices": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATVYSTAVE) AS YR, COUNT(*) AS N, SUM(CELKEM) AS STORED_TOTAL FROM FAKVY WHERE DATVYSTAVE>=DATE '2024-01-01' GROUP BY 1 ORDER BY 1",
+    "rows": [
+      {
+        "YR": 2024,
+        "N": 105,
+        "STORED_TOTAL": "63638.78"
+      },
+      {
+        "YR": 2025,
+        "N": 2121,
+        "STORED_TOTAL": "1387137.33"
+      },
+      {
+        "YR": 2026,
+        "N": 1838,
+        "STORED_TOTAL": "1360445.74"
+      }
+    ]
+  }
+}

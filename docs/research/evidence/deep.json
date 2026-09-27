@@ -1,0 +1,1028 @@
+{
+  "corrections_nonblank": {
+    "sql": "SELECT SUM(CASE WHEN TRIM(DOBROPIS_PRO)<>'' THEN 1 ELSE 0 END) AS CREDIT_REF, SUM(CASE WHEN TRIM(VRUBOPIS_PRO)<>'' THEN 1 ELSE 0 END) AS DEBIT_REF, SUM(CASE WHEN TRIM(STORNO_PRO)<>'' THEN 1 ELSE 0 END) AS CANCEL_REF, SUM(CASE WHEN TRIM(CIS_PREDF)<>'' THEN 1 ELSE 0 END) AS ADVANCE_REF FROM FAKVY",
+    "rows": [
+      {
+        "CREDIT_REF": 25,
+        "DEBIT_REF": 0,
+        "CANCEL_REF": 0,
+        "ADVANCE_REF": 46
+      }
+    ]
+  },
+  "pos_storno": {
+    "sql": "SELECT COUNT(*) AS TOTAL, SUM(CASE WHEN TRIM(STORNOID)<>'' THEN 1 ELSE 0 END) AS NONBLANK_STORNO_REF FROM MOARCHIV",
+    "rows": [
+      {
+        "TOTAL": 62101,
+        "NONBLANK_STORNO_REF": 221
+      }
+    ]
+  },
+  "quotes_year": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, NABIDKA, COUNT(*) AS N FROM OBJPR GROUP BY 1,2 ORDER BY 1,2",
+    "rows": [
+      {
+        "YR": null,
+        "NABIDKA": "T",
+        "N": 4
+      },
+      {
+        "YR": 2011,
+        "NABIDKA": "F",
+        "N": 1
+      },
+      {
+        "YR": 2012,
+        "NABIDKA": "F",
+        "N": 3
+      },
+      {
+        "YR": 2012,
+        "NABIDKA": "T",
+        "N": 7
+      },
+      {
+        "YR": 2013,
+        "NABIDKA": "F",
+        "N": 3
+      },
+      {
+        "YR": 2013,
+        "NABIDKA": "T",
+        "N": 36
+      },
+      {
+        "YR": 2014,
+        "NABIDKA": "F",
+        "N": 1
+      },
+      {
+        "YR": 2014,
+        "NABIDKA": "T",
+        "N": 70
+      },
+      {
+        "YR": 2015,
+        "NABIDKA": "F",
+        "N": 2
+      },
+      {
+        "YR": 2015,
+        "NABIDKA": "T",
+        "N": 68
+      },
+      {
+        "YR": 2016,
+        "NABIDKA": "F",
+        "N": 1
+      },
+      {
+        "YR": 2016,
+        "NABIDKA": "T",
+        "N": 31
+      },
+      {
+        "YR": 2017,
+        "NABIDKA": "T",
+        "N": 40
+      },
+      {
+        "YR": 2018,
+        "NABIDKA": "T",
+        "N": 25
+      },
+      {
+        "YR": 2019,
+        "NABIDKA": "T",
+        "N": 61
+      },
+      {
+        "YR": 2020,
+        "NABIDKA": "T",
+        "N": 62
+      },
+      {
+        "YR": 2021,
+        "NABIDKA": "F",
+        "N": 3
+      },
+      {
+        "YR": 2021,
+        "NABIDKA": "T",
+        "N": 96
+      },
+      {
+        "YR": 2022,
+        "NABIDKA": "F",
+        "N": 1
+      },
+      {
+        "YR": 2022,
+        "NABIDKA": "T",
+        "N": 231
+      },
+      {
+        "YR": 2023,
+        "NABIDKA": "F",
+        "N": 4
+      },
+      {
+        "YR": 2023,
+        "NABIDKA": "T",
+        "N": 257
+      },
+      {
+        "YR": 2024,
+        "NABIDKA": "T",
+        "N": 315
+      },
+      {
+        "YR": 2025,
+        "NABIDKA": "F",
+        "N": 2
+      },
+      {
+        "YR": 2025,
+        "NABIDKA": "T",
+        "N": 268
+      },
+      {
+        "YR": 2026,
+        "NABIDKA": "F",
+        "N": 1
+      },
+      {
+        "YR": 2026,
+        "NABIDKA": "T",
+        "N": 391
+      }
+    ]
+  },
+  "validity_year": {
+    "sql": "SELECT EXTRACT(YEAR FROM DATUM) AS YR, JEPLATNY, COUNT(*) AS N FROM SKPOH GROUP BY 1,2 ORDER BY 1,2",
+    "rows": [
+      {
+        "YR": 2011,
+        "JEPLATNY": "O",
+        "N": 3553
+      },
+      {
+        "YR": 2012,
+        "JEPLATNY": "O",
+        "N": 4549
+      },
+      {
+        "YR": 2013,
+        "JEPLATNY": "O",
+        "N": 5200
+      },
+      {
+        "YR": 2014,
+        "JEPLATNY": "O",
+        "N": 4737
+      },
+      {
+        "YR": 2015,
+        "JEPLATNY": "O",
+        "N": 4097
+      },
+      {
+        "YR": 2016,
+        "JEPLATNY": "O",
+        "N": 3444
+      },
+      {
+        "YR": 2017,
+        "JEPLATNY": "O",
+        "N": 3440
+      },
+      {
+        "YR": 2018,
+        "JEPLATNY": "O",
+        "N": 3869
+      },
+      {
+        "YR": 2019,
+        "JEPLATNY": "O",
+        "N": 4142
+      },
+      {
+        "YR": 2020,
+        "JEPLATNY": "O",
+        "N": 3857
+      },
+      {
+        "YR": 2021,
+        "JEPLATNY": "O",
+        "N": 3750
+      },
+      {
+        "YR": 2022,
+        "JEPLATNY": "O",
+        "N": 3972
+      },
+      {
+        "YR": 2023,
+        "JEPLATNY": "O",
+        "N": 4062
+      },
+      {
+        "YR": 2024,
+        "JEPLATNY": "O",
+        "N": 3662
+      },
+      {
+        "YR": 2025,
+        "JEPLATNY": "T",
+        "N": 10725
+      },
+      {
+        "YR": 2026,
+        "JEPLATNY": "T",
+        "N": 8096
+      }
+    ]
+  },
+  "pende_source_prefix": {
+    "sql": "SELECT SUBSTRING(ZDROJ FROM 1 FOR 2) AS SOURCE_PREFIX, COUNT(*) AS N FROM PENDE GROUP BY 1",
+    "rows": [
+      {
+        "SOURCE_PREFIX": "FP",
+        "N": 14
+      },
+      {
+        "SOURCE_PREFIX": "FV",
+        "N": 3803
+      }
+    ]
+  },
+  "attachments_links": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(ID_FV) AS SALES_INVOICE, COUNT(ID_FP) AS PURCHASE_INVOICE, COUNT(ID_OV) AS PURCHASE_ORDER, COUNT(ID_OP) AS SALES_ORDER, COUNT(ID_SK) AS SKU, COUNT(ID_AD) AS PARTNER, COUNT(ID_SP) AS STOCK_MOVE FROM DOCSTORED",
+    "rows": [
+      {
+        "TOTAL": 1890,
+        "SALES_INVOICE": 1873,
+        "PURCHASE_INVOICE": 0,
+        "PURCHASE_ORDER": 0,
+        "SALES_ORDER": 4,
+        "SKU": 2,
+        "PARTNER": 1,
+        "STOCK_MOVE": 10
+      }
+    ]
+  },
+  "stock_refs": {
+    "sql": "SELECT REFERENCE, COUNT(*) AS N FROM SKPOHREF GROUP BY REFERENCE",
+    "rows": [
+      {
+        "REFERENCE": "C",
+        "N": 96
+      },
+      {
+        "REFERENCE": "M",
+        "N": 5194
+      },
+      {
+        "REFERENCE": "S",
+        "N": 56
+      },
+      {
+        "REFERENCE": "U",
+        "N": 6
+      }
+    ]
+  },
+  "cashbook_links": {
+    "sql": "SELECT COUNT(*) AS TOTAL, COUNT(IDUHR_FV) AS FV, COUNT(IDUHR_FP) AS FP, SUM(CASE WHEN IDUHR_FV IS NULL AND IDUHR_FP IS NULL AND IDUHR_PH IS NULL AND IDUHR_ZV IS NULL AND IDPOKDOK IS NULL AND IDINTDOK IS NULL AND IDBANOBRAT IS NULL THEN 1 ELSE 0 END) AS NO_DOCUMENT_LINK FROM PENDE",
+    "rows": [
+      {
+        "TOTAL": 3817,
+        "FV": 3803,
+        "FP": 14,
+        "NO_DOCUMENT_LINK": 0
+      }
+    ]
+  },
+  "accounting_dates": {
+    "sql": "SELECT AGENDA, TYP, COUNT(*) AS N, MAX(LOG_DATE) AS LAST_DATE FROM FIRLOG GROUP BY AGENDA,TYP",
+    "rows": [
+      {
+        "AGENDA": "AA",
+        "TYP": "D",
+        "N": 12,
+        "LAST_DATE": "2025-02-28 11:53:24"
+      },
+      {
+        "AGENDA": "AA",
+        "TYP": "U",
+        "N": 1227,
+        "LAST_DATE": "2026-09-21 07:25:26"
+      },
+      {
+        "AGENDA": "AB",
+        "TYP": "A",
+        "N": 3,
+        "LAST_DATE": "2026-09-01 10:01:20"
+      },
+      {
+        "AGENDA": "FP",
+        "TYP": "U",
+        "N": 12,
+        "LAST_DATE": "2026-09-22 09:24:12"
+      },
+      {
+        "AGENDA": "FV",
+        "TYP": "D",
+        "N": 10,
+        "LAST_DATE": "2026-09-10 14:12:35"
+      },
+      {
+        "AGENDA": "FV",
+        "TYP": "U",
+        "N": 151,
+        "LAST_DATE": "2026-09-25 09:35:46"
+      },
+      {
+        "AGENDA": "KC",
+        "TYP": "E",
+        "N": 229,
+        "LAST_DATE": "2026-09-25 06:34:04"
+      },
+      {
+        "AGENDA": "LG",
+        "TYP": "D",
+        "N": 337,
+        "LAST_DATE": "2026-09-25 13:27:42"
+      },
+      {
+        "AGENDA": "LG",
+        "TYP": "I",
+        "N": 2744,
+        "LAST_DATE": "2026-09-27 04:30:02"
+      },
+      {
+        "AGENDA": "LG",
+        "TYP": "R",
+        "N": 30,
+        "LAST_DATE": "2026-09-25 13:27:03"
+      },
+      {
+        "AGENDA": "OP",
+        "TYP": "U",
+        "N": 66,
+        "LAST_DATE": "2026-09-24 11:04:21"
+      },
+      {
+        "AGENDA": "OV",
+        "TYP": "D",
+        "N": 13,
+        "LAST_DATE": "2026-09-23 07:04:34"
+      },
+      {
+        "AGENDA": "OV",
+        "TYP": "U",
+        "N": 79,
+        "LAST_DATE": "2026-09-23 07:04:34"
+      },
+      {
+        "AGENDA": "SK",
+        "TYP": "U",
+        "N": 98,
+        "LAST_DATE": "2026-09-25 11:36:21"
+      },
+      {
+        "AGENDA": "SP",
+        "TYP": "D",
+        "N": 41,
+        "LAST_DATE": "2026-09-16 13:50:53"
+      },
+      {
+        "AGENDA": "SP",
+        "TYP": "U",
+        "N": 107,
+        "LAST_DATE": "2026-09-25 09:48:24"
+      },
+      {
+        "AGENDA": "SV",
+        "TYP": "D",
+        "N": 32,
+        "LAST_DATE": "2026-09-24 09:27:42"
+      },
+      {
+        "AGENDA": "SV",
+        "TYP": "U",
+        "N": 292,
+        "LAST_DATE": "2026-09-25 15:31:35"
+      }
+    ]
+  },
+  "config_names": {
+    "sql": "SELECT ITEMNAME FROM FIRMNAST ORDER BY ITEMNAME",
+    "rows": [
+      {
+        "ITEMNAME": "ALKHLAS"
+      },
+      {
+        "ITEMNAME": "BANKA"
+      },
+      {
+        "ITEMNAME": "cfgidINTRAST_CNT"
+      },
+      {
+        "ITEMNAME": "DECODE"
+      },
+      {
+        "ITEMNAME": "DEFKODMENY"
+      },
+      {
+        "ITEMNAME": "DIC"
+      },
+      {
+        "ITEMNAME": "EMAIL"
+      },
+      {
+        "ITEMNAME": "FAX"
+      },
+      {
+        "ITEMNAME": "FIRMA"
+      },
+      {
+        "ITEMNAME": "FIRUCTO"
+      },
+      {
+        "ITEMNAME": "FISKALOBDDO"
+      },
+      {
+        "ITEMNAME": "FISKALOBDOD"
+      },
+      {
+        "ITEMNAME": "HOBACESTA"
+      },
+      {
+        "ITEMNAME": "ICO"
+      },
+      {
+        "ITEMNAME": "IC_DPH"
+      },
+      {
+        "ITEMNAME": "IMDOC_TOLERANCE_MIN"
+      },
+      {
+        "ITEMNAME": "INTRAST1_IN"
+      },
+      {
+        "ITEMNAME": "INTRAST1_OUT"
+      },
+      {
+        "ITEMNAME": "INTRAST2_IN"
+      },
+      {
+        "ITEMNAME": "INTRAST2_OUT"
+      },
+      {
+        "ITEMNAME": "INTRAST_FY"
+      },
+      {
+        "ITEMNAME": "KODBANKY"
+      },
+      {
+        "ITEMNAME": "KODBSWIFT"
+      },
+      {
+        "ITEMNAME": "KODSTAT"
+      },
+      {
+        "ITEMNAME": "KOEFDPHCENAMJ"
+      },
+      {
+        "ITEMNAME": "MENA"
+      },
+      {
+        "ITEMNAME": "MESTO"
+      },
+      {
+        "ITEMNAME": "MXS_PRVERAPP_MJR"
+      },
+      {
+        "ITEMNAME": "MXS_PRVERAPP_MNR"
+      },
+      {
+        "ITEMNAME": "MXS_PRVERAPP_RLS"
+      },
+      {
+        "ITEMNAME": "MXS_ZOBINFKONMZD"
+      },
+      {
+        "ITEMNAME": "MZDY_HRANICE_ZP4"
+      },
+      {
+        "ITEMNAME": "MZDY_IMPDOCH_INTTOL"
+      },
+      {
+        "ITEMNAME": "MZDY_IMPDOCH_TYPIMP"
+      },
+      {
+        "ITEMNAME": "MZDY_ISP_FINK"
+      },
+      {
+        "ITEMNAME": "MZDY_ISP_KOLSML"
+      },
+      {
+        "ITEMNAME": "MZDY_OKRES_OSSZ"
+      },
+      {
+        "ITEMNAME": "MZDY_SAZBA_ZPZ"
+      },
+      {
+        "ITEMNAME": "MZDY_STAT_ICO"
+      },
+      {
+        "ITEMNAME": "MZDY_VELKA_ORG"
+      },
+      {
+        "ITEMNAME": "MZDY_VYCH_ZAKAZKA"
+      },
+      {
+        "ITEMNAME": "MZDY_ZPUSOB_PHV"
+      },
+      {
+        "ITEMNAME": "NAHL_POVIN"
+      },
+      {
+        "ITEMNAME": "NEVERLAND"
+      },
+      {
+        "ITEMNAME": "OBCH_REG1"
+      },
+      {
+        "ITEMNAME": "OBCH_REG1"
+      },
+      {
+        "ITEMNAME": "OBCH_REG2"
+      },
+      {
+        "ITEMNAME": "OBCH_REG2"
+      },
+      {
+        "ITEMNAME": "POCDESMISTPOL"
+      },
+      {
+        "ITEMNAME": "PSC"
+      },
+      {
+        "ITEMNAME": "SPLATFAK"
+      },
+      {
+        "ITEMNAME": "STATKOD"
+      },
+      {
+        "ITEMNAME": "S_CENZAOKVY"
+      },
+      {
+        "ITEMNAME": "S_DELSKKAR"
+      },
+      {
+        "ITEMNAME": "S_DOMAXIMA"
+      },
+      {
+        "ITEMNAME": "S_DOMINIMA"
+      },
+      {
+        "ITEMNAME": "S_DOMINUSU"
+      },
+      {
+        "ITEMNAME": "S_DOMINUSUDATE"
+      },
+      {
+        "ITEMNAME": "S_EDKONSTAV"
+      },
+      {
+        "ITEMNAME": "S_FIFO"
+      },
+      {
+        "ITEMNAME": "S_IBASUMY"
+      },
+      {
+        "ITEMNAME": "S_IBASUMYP"
+      },
+      {
+        "ITEMNAME": "S_IO_CENAMJ"
+      },
+      {
+        "ITEMNAME": "S_IO_EAN"
+      },
+      {
+        "ITEMNAME": "S_IO_MENA"
+      },
+      {
+        "ITEMNAME": "S_IO_POCETMJ"
+      },
+      {
+        "ITEMNAME": "S_KONTNAKCENB"
+      },
+      {
+        "ITEMNAME": "S_KONTPRODCENB"
+      },
+      {
+        "ITEMNAME": "S_NEMENCENU"
+      },
+      {
+        "ITEMNAME": "S_NOEDITFAK"
+      },
+      {
+        "ITEMNAME": "S_NOEDITMO"
+      },
+      {
+        "ITEMNAME": "S_NOEDITSKLCEN"
+      },
+      {
+        "ITEMNAME": "S_NOEDITZAUC"
+      },
+      {
+        "ITEMNAME": "S_NOPREPPRODCEN"
+      },
+      {
+        "ITEMNAME": "S_NORMYSPOL"
+      },
+      {
+        "ITEMNAME": "S_POCDMPOL"
+      },
+      {
+        "ITEMNAME": "S_POLZAOKVY"
+      },
+      {
+        "ITEMNAME": "S_PREPOCITATPOH"
+      },
+      {
+        "ITEMNAME": "S_RABAT1"
+      },
+      {
+        "ITEMNAME": "S_RABAT2"
+      },
+      {
+        "ITEMNAME": "S_RABAT3"
+      },
+      {
+        "ITEMNAME": "S_RABAT4"
+      },
+      {
+        "ITEMNAME": "S_RABAT5"
+      },
+      {
+        "ITEMNAME": "S_RABATZC"
+      },
+      {
+        "ITEMNAME": "S_REZERVA"
+      },
+      {
+        "ITEMNAME": "S_TISKSPP"
+      },
+      {
+        "ITEMNAME": "S_TISKSPV"
+      },
+      {
+        "ITEMNAME": "S_UPDCENDOD"
+      },
+      {
+        "ITEMNAME": "S_UPRAVCENU1"
+      },
+      {
+        "ITEMNAME": "S_UPRAVCENU2"
+      },
+      {
+        "ITEMNAME": "S_UPRAVCENU3"
+      },
+      {
+        "ITEMNAME": "S_UPRAVCENU4"
+      },
+      {
+        "ITEMNAME": "S_UPRAVCENU5"
+      },
+      {
+        "ITEMNAME": "S_ZAOKCIENBEZDPH"
+      },
+      {
+        "ITEMNAME": "S_ZAOKCIENNEW"
+      },
+      {
+        "ITEMNAME": "S_ZAOKSDPHNEW"
+      },
+      {
+        "ITEMNAME": "S_ZAOKVYNEW"
+      },
+      {
+        "ITEMNAME": "S_ZAUCTOVANEPOH"
+      },
+      {
+        "ITEMNAME": "S_ZPZAOKCIEN"
+      },
+      {
+        "ITEMNAME": "S_ZPZAOKCIENBEZ"
+      },
+      {
+        "ITEMNAME": "S_ZPZAOKSDPH"
+      },
+      {
+        "ITEMNAME": "S_ZPZAOKVY"
+      },
+      {
+        "ITEMNAME": "TDCPV01"
+      },
+      {
+        "ITEMNAME": "TDCPV01"
+      },
+      {
+        "ITEMNAME": "TDCPV01"
+      },
+      {
+        "ITEMNAME": "TELEFON"
+      },
+      {
+        "ITEMNAME": "TYPPOVOL"
+      },
+      {
+        "ITEMNAME": "UCET"
+      },
+      {
+        "ITEMNAME": "UCETIBAN"
+      },
+      {
+        "ITEMNAME": "ULICA"
+      },
+      {
+        "ITEMNAME": "VYPDPHZAOKZAKL"
+      }
+    ]
+  },
+  "pos_config_names": {
+    "sql": "SELECT DISTINCT ITEMNAME FROM MONAST ORDER BY ITEMNAME",
+    "rows": [
+      {
+        "ITEMNAME": "AdresuNad"
+      },
+      {
+        "ITEMNAME": "CisloParagonu"
+      },
+      {
+        "ITEMNAME": "CisloSkladu"
+      },
+      {
+        "ITEMNAME": "DispEmpty"
+      },
+      {
+        "ITEMNAME": "DispEmpty2"
+      },
+      {
+        "ITEMNAME": "DispHome"
+      },
+      {
+        "ITEMNAME": "DisplejCelkem"
+      },
+      {
+        "ITEMNAME": "DispR2"
+      },
+      {
+        "ITEMNAME": "DotazNaTiskPar"
+      },
+      {
+        "ITEMNAME": "KodMeny"
+      },
+      {
+        "ITEMNAME": "KodUrizPapiru"
+      },
+      {
+        "ITEMNAME": "MoDvouradkovy"
+      },
+      {
+        "ITEMNAME": "MoZiskPol"
+      },
+      {
+        "ITEMNAME": "NazevPC"
+      },
+      {
+        "ITEMNAME": "Paragon"
+      },
+      {
+        "ITEMNAME": "PocatekHot"
+      },
+      {
+        "ITEMNAME": "PortDispleje"
+      },
+      {
+        "ITEMNAME": "PortDispSet"
+      },
+      {
+        "ITEMNAME": "PortVahaSet"
+      },
+      {
+        "ITEMNAME": "PortVahy"
+      },
+      {
+        "ITEMNAME": "PortZasuvky"
+      },
+      {
+        "ITEMNAME": "PouzitFiskal"
+      },
+      {
+        "ITEMNAME": "PrefixCR"
+      },
+      {
+        "ITEMNAME": "RadaOsPoh"
+      },
+      {
+        "ITEMNAME": "RadkuMeziDokl"
+      },
+      {
+        "ITEMNAME": "SekvenceZas"
+      },
+      {
+        "ITEMNAME": "SlevuDoCeny"
+      },
+      {
+        "ITEMNAME": "Stredisko"
+      },
+      {
+        "ITEMNAME": "TiskarnaPar"
+      },
+      {
+        "ITEMNAME": "TiskarnaSest"
+      },
+      {
+        "ITEMNAME": "TiskParCP"
+      },
+      {
+        "ITEMNAME": "TiskTextove"
+      },
+      {
+        "ITEMNAME": "TypDispleje"
+      },
+      {
+        "ITEMNAME": "TypOsPoh"
+      },
+      {
+        "ITEMNAME": "TypZasuvky"
+      },
+      {
+        "ITEMNAME": "UctOsPoh"
+      },
+      {
+        "ITEMNAME": "Uctovat"
+      },
+      {
+        "ITEMNAME": "Uzaverka"
+      },
+      {
+        "ITEMNAME": "VarZRezervace"
+      },
+      {
+        "ITEMNAME": "Zakazka"
+      }
+    ]
+  },
+  "recent_fields": {
+    "sql": "SELECT COUNT(*) AS N, COUNT(DISTINCT LOG_USER) AS ACTORS FROM SKPOH WHERE DATUM>=DATE '2025-01-01'",
+    "rows": [
+      {
+        "N": 18821,
+        "ACTORS": 7
+      }
+    ]
+  },
+  "number_scale": {
+    "sql": "SELECT TRIM(r.RDB$RELATION_NAME) AS TABLE_NAME, TRIM(r.RDB$FIELD_NAME) AS COLUMN_NAME, f.RDB$FIELD_PRECISION AS PRECISION_VALUE, f.RDB$FIELD_SCALE AS SCALE_VALUE FROM RDB$RELATION_FIELDS r JOIN RDB$FIELDS f ON r.RDB$FIELD_SOURCE=f.RDB$FIELD_NAME WHERE (r.RDB$RELATION_NAME='SKKAR' AND r.RDB$FIELD_NAME IN ('IDR','CISLO','MJ')) OR (r.RDB$RELATION_NAME='ADRES' AND r.RDB$FIELD_NAME IN ('IDRADR','ICO'))",
+    "rows": [
+      {
+        "TABLE_NAME": "ADRES",
+        "COLUMN_NAME": "IDRADR",
+        "PRECISION_VALUE": 0,
+        "SCALE_VALUE": 0
+      },
+      {
+        "TABLE_NAME": "ADRES",
+        "COLUMN_NAME": "ICO",
+        "PRECISION_VALUE": null,
+        "SCALE_VALUE": 0
+      },
+      {
+        "TABLE_NAME": "SKKAR",
+        "COLUMN_NAME": "CISLO",
+        "PRECISION_VALUE": 10,
+        "SCALE_VALUE": -2
+      },
+      {
+        "TABLE_NAME": "SKKAR",
+        "COLUMN_NAME": "IDR",
+        "PRECISION_VALUE": 0,
+        "SCALE_VALUE": 0
+      },
+      {
+        "TABLE_NAME": "SKKAR",
+        "COLUMN_NAME": "MJ",
+        "PRECISION_VALUE": null,
+        "SCALE_VALUE": 0
+      }
+    ]
+  },
+  "fk_integrity_keylines": {
+    "sql": "SELECT (SELECT COUNT(*) FROM SKPOHPOL p LEFT JOIN SKKAR k ON k.CISLO=p.CISLOKAR WHERE p.CISLOKAR IS NOT NULL AND k.IDR IS NULL) AS MISSING_CARD, (SELECT COUNT(*) FROM FAKVYPOL p LEFT JOIN SKPOHPOL s ON s.IDPOHPOL=p.IDSKPOHPOL WHERE p.IDSKPOHPOL IS NOT NULL AND s.IDPOHPOL IS NULL) AS MISSING_STOCK_LINE FROM RDB$DATABASE",
+    "rows": [
+      {
+        "MISSING_CARD": 0,
+        "MISSING_STOCK_LINE": 0
+      }
+    ]
+  },
+  "invoice_stock_multiple": {
+    "sql": "SELECT COUNT(*) AS INVOICES_WITH_MULTIPLE_MOVES FROM (SELECT IDFAKVY, COUNT(*) AS N FROM SKPOH WHERE IDFAKVY IS NOT NULL GROUP BY IDFAKVY HAVING COUNT(*)>1)",
+    "rows": [
+      {
+        "INVOICES_WITH_MULTIPLE_MOVES": 218
+      }
+    ]
+  },
+  "negative_prices": {
+    "sql": "SELECT SUM(CASE WHEN CENAMJ<0 THEN 1 ELSE 0 END) AS NEGATIVE_COST, SUM(CASE WHEN POCETMJ<>0 AND CENAMJ=0 THEN 1 ELSE 0 END) AS NONZERO_WITH_ZERO_COST FROM SKKARSTA",
+    "rows": [
+      {
+        "NEGATIVE_COST": 0,
+        "NONZERO_WITH_ZERO_COST": 2282
+      }
+    ]
+  },
+  "card_extra_usage": {
+    "sql": "SELECT SUM(CASE WHEN TRIM(USRFLD1)<>'' OR TRIM(USRFLD2)<>'' OR TRIM(USRFLD3)<>'' OR TRIM(USRFLD4)<>'' OR TRIM(USRFLD5)<>'' THEN 1 ELSE 0 END) AS CUSTOM_FIELDS, SUM(CASE WHEN KUSY<>0 THEN 1 ELSE 0 END) AS KUSY_NONZERO, SUM(CASE WHEN NEHMOTPRD<>0 THEN 1 ELSE 0 END) AS NEHMOTPRD_NONZERO FROM SKKAR",
+    "rows": [
+      {
+        "CUSTOM_FIELDS": 3,
+        "KUSY_NONZERO": 10638,
+        "NEHMOTPRD_NONZERO": 0
+      }
+    ]
+  },
+  "functions_metadata": {
+    "sql": "SELECT TRIM(RDB$FUNCTION_NAME) AS FUNCTION_NAME, TRIM(RDB$MODULE_NAME) AS MODULE_NAME, TRIM(RDB$ENTRYPOINT) AS ENTRYPOINT_NAME FROM RDB$FUNCTIONS WHERE COALESCE(RDB$SYSTEM_FLAG,0)=0",
+    "rows": [
+      {
+        "FUNCTION_NAME": "LTRIM",
+        "MODULE_NAME": null,
+        "ENTRYPOINT_NAME": null
+      },
+      {
+        "FUNCTION_NAME": "RTRIM",
+        "MODULE_NAME": null,
+        "ENTRYPOINT_NAME": null
+      },
+      {
+        "FUNCTION_NAME": "STRLEN",
+        "MODULE_NAME": null,
+        "ENTRYPOINT_NAME": null
+      },
+      {
+        "FUNCTION_NAME": "SUBSTR",
+        "MODULE_NAME": null,
+        "ENTRYPOINT_NAME": null
+      }
+    ]
+  },
+  "kusy_codes": {
+    "sql": "SELECT KUSY, COUNT(*) AS N FROM SKKAR GROUP BY KUSY",
+    "rows": [
+      {
+        "KUSY": 1,
+        "N": 10636
+      },
+      {
+        "KUSY": 2,
+        "N": 1
+      },
+      {
+        "KUSY": 3,
+        "N": 1
+      }
+    ]
+  },
+  "selected_config": {
+    "sql": "SELECT ITEMNAME, ITEMVALUE FROM FIRMNAST WHERE ITEMNAME IN ('S_SEPARE','S_FIFO','S_DOMINUSU','S_SKLCALCZPNEW')",
+    "rows": [
+      {
+        "ITEMNAME": "S_DOMINUSU",
+        "ITEMVALUE": "\"1\""
+      },
+      {
+        "ITEMNAME": "S_FIFO",
+        "ITEMVALUE": "\"0\""
+      }
+    ]
+  },
+  "balance_hypothesis": {
+    "sql": "SELECT COUNT(*) AS BALANCE_ROWS, SUM(CASE WHEN ABS(s.POCETMJ-s.POCPOCETMJ-COALESCE(m.DELTA_QTY,0))>0.00001 THEN 1 ELSE 0 END) AS MISMATCH_ROWS, MAX(ABS(s.POCETMJ-s.POCPOCETMJ-COALESCE(m.DELTA_QTY,0))) AS MAX_DIFFERENCE FROM SKKARSTA s LEFT JOIN (SELECT h.CISLOSKL,p.CISLOKAR,SUM(CASE WHEN h.JEPRIJEM='T' THEN p.POCETMJ ELSE -p.POCETMJ END) AS DELTA_QTY FROM SKPOHPOL p JOIN SKPOH h ON h.IDPOH=p.IDPOH WHERE h.JEPLATNY='T' AND p.JEUCETPOL='T' GROUP BY h.CISLOSKL,p.CISLOKAR) m ON m.CISLOSKL=s.CISLOSKL AND m.CISLOKAR=s.CISLOKAR",
+    "rows": [
+      {
+        "BALANCE_ROWS": 75831,
+        "MISMATCH_ROWS": 0,
+        "MAX_DIFFERENCE": "0.000000"
+      }
+    ]
+  }
+}

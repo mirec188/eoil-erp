@@ -1,0 +1,86 @@
+{
+  "scope": "Local supplied copy, not live production. No consistency certification of original copy.",
+  "research_snapshot": "research-20260927; all five databases enforced read-only",
+  "source_files": {
+    "DATASPOL.MRP": {
+      "size": 1441792,
+      "sha256": "f319be1f28bfe3c9dbbacb709bb920de85ef1343215208cb3f652497e5b00ec4"
+    },
+    "DATA0001.MRP": {
+      "size": 809500672,
+      "sha256": "735eaca8825ed704c3a540524ecad0f79fd323e65bcfe35c216e99511521d900"
+    },
+    "DATA0003.MRP": {
+      "size": 357040128,
+      "sha256": "b751395e330f4ad2733fb95064f61ba212a59e308d91aeb87a530d7ea29e6b7d"
+    },
+    "DATA0002.MRP": {
+      "size": 46632960,
+      "sha256": "c6b95c04b5660ef0bf8bd0ee1f02910fb108be32d94f6489aeffcfc918b38b5f"
+    },
+    "DATALOCK.MRP": {
+      "size": 108945408,
+      "sha256": "e34b20d43343a7c8b517b52fa1a287922c0373e8a724f7fc47d028ab986fb6c4"
+    }
+  },
+  "profiles": {
+    "DATA0001": {
+      "captured_at": "2026-09-27T15:34:57+00:00",
+      "captured_end": "2026-09-27T15:34:59+00:00",
+      "metadata": {
+        "ODS_MAJOR": 12,
+        "ODS_MINOR": 0,
+        "READ_ONLY": 1
+      },
+      "tables": 387,
+      "populated_tables": 194
+    },
+    "DATA0002": {
+      "captured_at": "2026-09-27T15:34:57+00:00",
+      "captured_end": "2026-09-27T15:34:58+00:00",
+      "metadata": {
+        "ODS_MAJOR": 12,
+        "ODS_MINOR": 0,
+        "READ_ONLY": 1
+      },
+      "tables": 372,
+      "populated_tables": 152
+    },
+    "DATA0003": {
+      "captured_at": "2026-09-27T15:29:43+00:00",
+      "captured_end": "2026-09-27T15:29:44+00:00",
+      "metadata": {
+        "ODS_MAJOR": 12,
+        "ODS_MINOR": 0,
+        "READ_ONLY": 1
+      },
+      "tables": 387,
+      "populated_tables": 190
+    },
+    "DATASPOL": {
+      "captured_at": "2026-09-27T15:34:57+00:00",
+      "captured_end": "2026-09-27T15:34:57+00:00",
+      "metadata": {
+        "ODS_MAJOR": 12,
+        "ODS_MINOR": 0,
+        "READ_ONLY": 1
+      },
+      "tables": 15,
+      "populated_tables": 8
+    },
+    "DATALOCK": {
+      "captured_at": "2026-09-27T15:34:57+00:00",
+      "captured_end": "2026-09-27T15:34:57+00:00",
+      "metadata": {
+        "ODS_MAJOR": 12,
+        "ODS_MINOR": 0,
+        "READ_ONLY": 1
+      },
+      "tables": 5,
+      "populated_tables": 3
+    }
+  },
+  "eoil_code_revision": "de5a5c2241503a02191a8d230078af7e071fac0b",
+  "eoil_data_profiled": false,
+  "source_file_hashes_rechecked": true
+}

@@ -1,0 +1,13 @@
+.local/
+.env
+.env.*
+!.env.example
+*.MRP
+*.GBK
+*.fdb
+*.fbk
+*.log
+.DS_Store
+node_modules/
+__pycache__/
+*.pyc
