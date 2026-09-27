@@ -87,7 +87,7 @@ umask 077
 openssl rand -hex 32 > $RT/erp_client_secret      # client secret (zdieľa sa s ERP .env)
 openssl rand -hex 32 > $RT/erp_jwt_secret         # podpisový kľúč, iný ako client secret aj MCP secret
 echo 'http://127.0.0.1:8089/auth/callback' > $RT/erp_redirect_uris
-echo 'Admin' > $RT/erp_allowed_roles              # presné názvy rolí eOil; prázdne = nikto
+echo 'Admin' > $RT/erp_allowed_roles              # potvrdené pravidlo: iba Admin (iné role kód ignoruje); prázdne = nikto
 ```
 
 **2. ERP `.env`** v `eoil-erp-m2` (git-ignorovaný; hodnotu tajomstva doplní príkaz, nevypisovať):
@@ -112,12 +112,21 @@ docker compose up -d --wait
 
 Prehliadač používa `localhost:8888` (authorize), kontajner ERP `host.docker.internal:8888` (token a API). Callback ide na `127.0.0.1:8089`.
 
-**3. Prihlásenie**: <http://127.0.0.1:8089/> → „Prihlásiť sa cez eOil“. Ak nie ste prihlásený v eOil, eOil zobrazí výzvu; prihláste sa lokálnym účtom s rolou zo `erp_allowed_roles` (napr. cez `…/frontend/web/index.php/auth/login`) a potom v eOil kliknite „Už som prihlásený, pokračovať do ERP“ (login eOil sa po prihlásení nevracia späť sám).
+**3. Prihlásenie**: <http://127.0.0.1:8089/> → „Prihlásiť sa cez eOil“. Ak nie ste prihlásený v eOil, zobrazí sa bežný login eOil; po prihlásení účtom s rolou Admin sa eOil sám vráti do ERP na pôvodnú stránku. Keď po 10 minútach vyprší token ERP, ďalšie otvorenie stránky prihlásenie obnoví samo (pri platnej session eOil bez formulára). Po „Odhlásiť“ v ERP sa automaticky neprihlási späť.
+
+Pre funkčný návrat musia git-ignorované kópie konfigurácie vo worktree eOil ukazovať na worktree: v `common/config/params-local.php` hodnoty `loginUrl`, `baseFrontendUrl`, `baseBackendUrl`, `backendBaseUrl` a vo `frontend/config/main-local.php` `baseUrl` s cestou `/eoil-erp-api-identity/eoil-yii2` (nie pôvodný checkout). Voliteľne `erpLoginUrl` v params, ak má ERP používať iný login ako `loginUrl`.
+
+Debug modul eOil (dev) ERP požiadavky nezaznamenáva. Ak už niekde vznikli debug záznamy s tajomstvami z predchádzajúcej verzie, zmažte `backend/runtime/debug/*.data` a tajomstvá vygenerujte znova.
 
 **4. Automatická kontrola** (vypisuje iba stavové kódy a PASS/FAIL, nie údaje účtu):
 
 ```sh
 EOIL_E2E_EMAIL=… EOIL_E2E_PASSWORD=… [EOIL_E2E_MRP=…] ./tools/e2e/eoil-signin-smoke.sh
+
+# s kontrolou obnovy: dočasne krátky token v eOil, po teste súbor zmazať (predvolené 600 s)
+echo 60 > $RT/erp_access_token_ttl
+EOIL_E2E_RENEWAL_WAIT=47 EOIL_E2E_EMAIL=… EOIL_E2E_PASSWORD=… ./tools/e2e/eoil-signin-smoke.sh
+rm $RT/erp_access_token_ttl
 ```
 
 **Testy eOil** (MAMP PHP 8.2, DB `eoil_test`, zápisy iba v rollback transakciách):

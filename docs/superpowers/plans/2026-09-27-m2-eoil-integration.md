@@ -30,3 +30,14 @@ Návrh: [2026-09-27-m2-eoil-integration-design.md](../specs/2026-09-27-m2-eoil-i
 
 - [x] Lokálny tok MAMP ↔ ERP Docker s existujúcim lokálnym účtom (bez výpisu údajov), čítanie reálnych balení z lokálnej DB cez API.
 - [x] Dokumentácia spustenia, overené vs. mock, otvorené body.
+
+## M2.1 — review a dokončenie (27. 9. 2026)
+
+- [x] Návrh pred implementáciou v spec (sekcia M2.1).
+- [x] Cielené security review oboch strán; nálezy F1–F9, opravy a regresné testy v [m2-validation.md](../../development/m2-validation.md).
+- [x] Iba Admin v kóde a testoch (neaktívny Admin, Seller/Product).
+- [x] Automatický návrat z loginu eOil (nonce v session, bez open redirectu).
+- [x] Obnova ERP prihlásenia cez authorize/PKCE s ochranou proti slučke, bez automatiky po odhlásení.
+- [x] OpenSpec zmena doplnená a zvalidovaná (`openspec validate --strict` cez npx), changelog „Čo je nové“.
+- [x] Lokálne E2E s obnovou, testy a statické kontroly; lokálne tajomstvá rotované.
+- [ ] Nezávislé review a uloženie koordinátorom; eOil sa nemerguje do release.

@@ -13,6 +13,7 @@ use Yiisoft\Http\Status;
 use Yiisoft\Yii\View\Renderer\WebViewRenderer;
 
 use function http_build_query;
+use function in_array;
 
 /**
  * Shared responses of the sign-in flow and of pages that meet an expired or refused sign-in.
@@ -33,14 +34,21 @@ final readonly class SignInResponses
             ->withHeader(Header::CACHE_CONTROL, 'no-store');
     }
 
-    /** eOil answered 401 during a page: the sign-in is gone, start again and come back here. */
+    /**
+     * eOil answered 401 during a page: the sign-in is gone. A GET page renews once automatically
+     * through the standard authorize flow and comes back here; anything else goes to /login.
+     */
     public function signInExpired(ServerRequestInterface $request): ResponseInterface
     {
-        $this->authSession->signOut('expired');
+        $this->authSession->expireSignIn();
+        $isRead = in_array($request->getMethod(), ['GET', 'HEAD'], true);
         $uri = $request->getUri();
-        $return = AuthSession::safeReturnPath($uri->getPath() . ($uri->getQuery() === '' ? '' : '?' . $uri->getQuery()));
+        $return = $isRead
+            ? AuthSession::safeReturnPath($uri->getPath() . ($uri->getQuery() === '' ? '' : '?' . $uri->getQuery()))
+            : '/';
+        $entry = $isRead && $this->authSession->beginAutomaticRenewal() ? '/login/start' : '/login';
 
-        return $this->redirect('/login' . ($return === '/' ? '' : '?' . http_build_query(['return' => $return])));
+        return $this->redirect($entry . ($return === '/' ? '' : '?' . http_build_query(['return' => $return])));
     }
 
     /** eOil answered 403: blocked account or no ERP role. The ERP session is ended. */

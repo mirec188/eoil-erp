@@ -139,16 +139,54 @@ final class SignInCest
         $I->see('Prihlásenie do eOil ERP');
     }
 
-    public function expiredTokenSendsUserToSignInAndBack(WebTester $I): void
+    public function expiredTokenIsRenewedAutomaticallyAndReturnsToTheSamePage(WebTester $I): void
     {
         SignIn::as($I);
         $I->amOnUrl(SignIn::MOCK . '/__mock/expire');
 
-        $I->amOnUrl(SignIn::APP . '/catalog/501');
-        $I->see('Prihlásenie vypršalo');
-        $I->click('Prihlásiť sa cez eOil');
-        $I->seeCurrentUrlEquals('/catalog/501');
+        $I->amOnUrl(SignIn::APP . '/catalog/501?q=abc');
+        $I->seeResponseCodeIs(200);
+        $I->seeCurrentUrlEquals('/catalog/501?q=abc');
         $I->see('Mock API: testovací olej', 'h5');
+        $I->see('Testovací používateľ (mock)');
+        $I->dontSee('Prihlásenie vypršalo');
+    }
+
+    public function renewalThatFailsImmediatelyDoesNotLoop(WebTester $I): void
+    {
+        SignIn::as($I);
+        $I->amOnUrl(SignIn::MOCK . '/__mock/expire');
+        $I->amOnUrl(SignIn::APP . '/catalog');
+        $I->see('Testovací používateľ (mock)');
+
+        // The renewed token is rejected at once as well: no second automatic round within the interval.
+        $I->amOnUrl(SignIn::MOCK . '/__mock/expire');
+        $I->amOnUrl(SignIn::APP . '/catalog');
+        $I->seeResponseCodeIs(200);
+        $I->seeCurrentUrlEquals('/login?return=%2Fcatalog');
+        $I->see('Prihlásenie vypršalo');
+    }
+
+    public function renewalWithoutEoilSessionGoesToTheEoilLogin(WebTester $I): void
+    {
+        SignIn::as($I);
+        // eOil session gone (mock shows its login prompt) and the ERP token no longer valid.
+        $I->amOnUrl(SignIn::MOCK . '/__mock/reset?scenario=guest');
+
+        $I->amOnUrl(SignIn::APP . '/catalog');
+        $I->see('Najprv sa prihláste do eOil');
+    }
+
+    public function renewalOfABlockedUserEndsInAccessDenied(WebTester $I): void
+    {
+        SignIn::as($I);
+        $I->amOnUrl(SignIn::MOCK . '/__mock/reset?scenario=denied');
+
+        $I->amOnUrl(SignIn::APP . '/catalog');
+        $I->seeResponseCodeIs(403);
+        $I->see('Prístup zamietnutý');
+        $I->amOnUrl(SignIn::APP . '/catalog');
+        $I->see('Prihlásenie do eOil ERP');
     }
 
     public function logoutRequiresPostWithCsrfAndEndsTheErpSession(WebTester $I): void
@@ -165,7 +203,9 @@ final class SignInCest
         $I->click('Odhlásiť', 'form[action="/logout"]');
         $I->seeCurrentUrlEquals('/login');
         $I->see('Boli ste odhlásený z ERP');
+        // No automatic sign-in right after an explicit sign-out, although the (mock) eOil session is valid.
         $I->amOnUrl(SignIn::APP . '/catalog');
+        $I->seeCurrentUrlEquals('/login?return=%2Fcatalog');
         $I->see('Prihlásenie do eOil ERP');
     }
 

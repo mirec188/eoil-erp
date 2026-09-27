@@ -83,3 +83,78 @@ Konfigurácia lokálneho behu: tajomstvá vygenerované `openssl rand` priamo do
 Koordinátor 27. 9. 2026 zopakoval ERP suite (249 testov / 806 assertions) a `composer validate --strict`: úspech. Zopakoval aj eOil testy `services/erp` (14/52), `ErpProductPackReaderDbTest` (7/311) a `ErpAuthFlowCest` (13/87) nad izolovanou `eoil_test`: všetko úspešné. Celú historickú regresnú sadu eOil znovu nespúšťal; vyššie uvedené existujúce zlyhania zostávajú hlásením implementátora.
 
 Používateľ výslovne potvrdil prístup **iba pre Admin**. Poveril uložením M2 a pokračovaním bezpečnostným review, návratom po prihlásení a obnovou session. eOil vetva `codex/erp-api-identity` sa **teraz nemerguje do release**. Tieto následné úpravy nie sú dokončené týmto základným commitom; produkcia zostáva odmietnutá.
+
+## M2.1 — cielené security review a dokončenie prihlásenia (27. 9. 2026)
+
+Zadanie: `docs/development/m2-followup-handoff.md`. Implementátor: Claude Code, `claude-opus-5-5`, effort high. Zmeny vznikli v tých istých worktree nad základnými commitmi (`eoil-erp-m2`: `728b9cb`, `eoil-erp-api-identity`: `be8d1886`). Návrh pred implementáciou: sekcia M2.1 v [spec](../superpowers/specs/2026-09-27-m2-eoil-integration-design.md). Tento oddiel nahrádza otvorené body vyššie o návrate z loginu, rolách, OpenSpec a `index.php` login URL.
+
+### Nálezy security review
+
+| # | Závažnosť | Nález a dôkaz | Oprava | Regresný test |
+|---|---|---|---|---|
+| F1 | stredná | `ErpAuthCodeStore::consume` ignoroval výsledok `cache->delete()`; `FileCache::deleteValue` vracia výsledok `@unlink`. Pri zlyhaní mazania by sa vydal grant a záznam by ostal pre ďalšiu výmenu toho istého kódu (druhý token). | Grant sa použije iba pri úspešnom zmazaní (fail closed); pri nedostupnom zámku tiež odmietnutie. Najviac jedna úspešná výmena. | `ErpSecurityTest::testCodeIsRefusedWhenItCannotBeDeleted` (mutácia na pôvodnú logiku → test zlyhá), `…WhenTheLockIsNotAvailable` |
+| F2 | nízka | Yii log targety pri chybe/varovaní vypisujú `$_POST`; `code` a `code_verifier` token requestu nie sú maskované (Basic client secret a `Authorization` sú maskované predvoleným `maskVars`; `REDIRECT_HTTP_AUTHORIZATION` backend nevytvára — overené sondou, ktorá vypísala iba prítomnosť kľúčov a bola hneď zmazaná). | Po načítaní sa hodnoty odstránia z `$_POST` (lokálne v akcii, bez zmeny globálnej konfigurácie logov). | `ErpSecurityTest::testOneTimeValuesAreRemovedFromPost`, `ErpAuthFlowCest::tokenRequestRemovesOneTimeValuesFromPost` |
+| F3 | stredná (dev/test) | Yii debug modul, zapnutý lokálne v `backend/config/main-local.php` (šablóna `environments/dev`; produkčná šablóna ho nemá), ukladal do `backend/runtime/debug/*.data` Basic hlavičku s client secretom (3 súbory) a Bearer JWT (17 súborov) — zistené počtom zhôd, bez výpisu. | ERP koncové body vypnú debug log target pre svoju požiadavku (rovnako ako debug modul pre vlastné stránky). Lokálne debug dáta zmazané, lokálny client secret aj podpisový kľúč **rotované**. | `ErpSecurityTest::testDebugLogTargetIsDisabledForErpRequests`; dôkaz v MAMP: po ERP požiadavkách 0 debug záznamov, po bežnej stránke backendu 1 |
+| F4 | nízka | Odpovede `erp-auth` a API nemali ochranu proti vloženiu do rámca. | `X-Frame-Options: DENY`, `Content-Security-Policy: frame-ancestors 'none'`, `nosniff`, `no-store`. | `ErpAuthFlowCest::responsesCannotBeFramedOrCached` |
+| F5 | informácia | Viacero serverov eOil: `FileMutex` je lokálny zámok súboru, `FileCache` lokálna; zdieľaná cache sama nestačí na atomickú spotrebu kódu. | Opravená dokumentácia (kód, návrh, OpenSpec): mimo rozsahu je atomická spotreba v zdieľanom úložisku (DB `UPDATE … WHERE used = 0`, Redis GETDEL). Rozsah ostáva jeden server. | — (dokumentácia) |
+| F6 | informácia | Návratová cesta ERP sa brala aj z ne-GET požiadaviek. | Návrat iba z GET/HEAD; ostatné metódy → `/`, nikdy sa neprehrávajú. | `RequireSignInMiddlewareTest::testPostIsNeverRenewedOrReplayed` |
+| F7 | informácia | Access logy: MAMP (`LogFormat … "%r"`) zapisuje riadok požiadavky — authorize (state, PKCE challenge — nie tajomstvá) a login `?erp=<nonce>` (bez session bezcenný). ERP PHP server s workermi zapisuje iba „Accepted/Closing“ (overené testovacím `code=PROBE…`: 0 výskytov). Produkčný web server ERP by zapísal `code` z callbacku. | Bez zmeny kódu: kód je jednorazový, 60 s, viazaný na PKCE verifier v session ERP a client secret. Odporúčanie pre nasadenie: nelogovať query string `/auth/callback`. | — |
+| F8 | informácia | GET `/login/start` možno vyvolať z cudzej stránky („login CSRF“): prihlási obeť iba jej vlastným účtom a prepíše rozpracovaný pokus. | Prijaté riziko, zdokumentované; state a PKCE bránia podstrčeniu cudzieho kódu. | `SignInCest::callbackWithoutMatchingStateIsRejected` |
+| F9 | overené v poriadku | PKCE S256 + `hash_equals`; state 256 bit viazaný na session ERP, jednorazový; presné `redirect_uri`; lokálna návratová cesta; `session_regenerate_id(true)` pri prihlásení aj odhlásení (Yii3 `Session::regenerateId`); cookie `HttpOnly`, `SameSite=Lax`; expirácia ERP 15 s pred tokenom, JWT leeway 30 s; revokácia pri každej požiadavke; chybové odpovede bez vstupov a tajomstiev. | — | existujúce testy M2 |
+
+### Dokončené kroky
+
+- **Iba Admin** (potvrdené používateľom): `ErpConfig` prijme z konfigurácie iba `Admin`, iné názvy (Seller, Product, `admin`) ignoruje. Testy: `testOnlyAdminCanEverBeAllowed`, `inactiveAdminIsDenied`, `activeSellerAndProductUserIsDeniedEvenIfConfigured`. Role reálnych účtov sa nemenili (testovací používatelia iba v rollback transakciách `eoil_test`).
+- **Automatický návrat z loginu eOil**: authorize pre hosťa uloží overenú URL pod jednorazovým nonce (5 min) a presmeruje na login s `?erp=`; formulár nonce zachová; po úspechu návrat na uloženú URL. Bez nonce, s cudzím nonce, s `return=` na cudziu doménu alebo pri zablokovanom účte sa login správa ako doteraz. Testy: `ErpLoginReturnCest` (7), `ErpSecurityTest` (4 testy nonce), `ErpAuthFlowCest::guestIsSentToEoilLoginWithOneTimeReturn`, `guestWithInvalidRequestIsNotSentToLogin`.
+- **Obnova ERP prihlásenia**: po expirácii tokenu alebo 401 z eOil spustí ďalšia GET požiadavka raz automaticky štandardný authorize/PKCE tok s návratom na tú istú GET adresu; najviac raz za 60 s; nie po explicitnom odhlásení; POST sa neprehráva; zablokovanie/odobratie roly končí „Prístup zamietnutý“. Testy: `AuthSessionTest` (6 nových), `RequireSignInMiddlewareTest` (5), `SignInCest` (4 nové/upravené scenáre).
+- **OpenSpec**: `npx --yes @fission-ai/openspec@1.13.2 validate add-erp-api-identity --strict --no-interactive` (používateľská cache npm, bez globálnej inštalácie) → `Change 'add-erp-api-identity' is valid`, exit 0 — pred aj po doplnení M2.1.
+- **Changelog eOil** („Čo je nové“, sekcia Prepojenie s ERP): pridaná jedna veta podľa pravidiel `changelog-on-commit`; commit spraví koordinátor.
+
+### Výsledky kontrol
+
+ERP (`docker compose run --rm --no-deps app …`): **OK (263 tests, 844 assertions)** — Unit 207, Web 53, Functional 2, Console 1; Psalm `No errors found!`; PHP-CS-Fixer `0 of 104`; dependency analyser `No composer issues found`; `composer validate --strict` valid; lint 106 súborov.
+
+eOil (MAMP PHP 8.2.0, `eoil_test`):
+
+| Sada | Výsledok |
+|---|---|
+| `unit services/erp` | **OK (23 tests, 78 assertions)** |
+| `unit integration/ErpProductPackReaderDbTest` | **OK (7 tests, 311 assertions)** |
+| `functional backend ErpAuthFlowCest` | **OK (18 tests, 109 assertions)** |
+| `functional backend` (celá) | 23 testov, 1 chyba = existujúci `LoginCest` (`Unknown column 'username'`) |
+| `functional frontend ErpLoginReturnCest` | **OK (7 tests, 17 assertions)** |
+| `functional frontend` (celá, pred a po) | pred: 49 testov, 15 chýb, 9 zlyhaní (šablónové About/Contact/Home/Signup/Login…); po: 56 testov, **rovnaká množina** chýb/zlyhaní + 7 nových úspešných |
+
+Po behoch v `eoil_test` nezostal žiadny testovací používateľ ani e-mail. Nesúvisiace `common` sady (XLSX, PriceImport) sa znovu nespúšťali — zmena sa ich netýka. Konce riadkov `frontend/controllers/AuthController.php` (CRLF) sú zachované; diff je +10/−1.
+
+### Lokálny end-to-end tok (MAMP ⇄ ERP 8089)
+
+`tools/e2e/eoil-signin-smoke.sh` s lokálnym Admin účtom, reálnym MRP číslom s `.0x` a dočasným TTL 60 s (`backend/runtime/erp_access_token_ttl`, po teste zmazaný; predvolených 600 s): **28/28 PASS, exit 0**:
+
+- hosť v ERP → authorize → login eOil s nonce → formulár nonce zachová → po prihlásení eOil sám vráti authorize → callback → pôvodná stránka ERP (bez tlačidla „Už som prihlásený“);
+- katalóg 25 riadkov, detail, strana 2, 404, MRP s `.0x` nezmenené; nové ERP prihlásenie pri platnej session eOil bez formulára;
+- po expirácii tokenu (47 s) sa ďalšia GET obnoví sama a ostane na tej istej stránke;
+- po odhlásení z eOil a expirácii obnova vyžaduje skutočný login eOil a vráti do ERP;
+- odhlásenie z ERP bez CSRF 422, s CSRF 302; potom **žiadne** automatické prihlásenie (`/login`).
+
+Kontrola po E2E: debug adresár backendu bez záznamov z ERP koncových bodov; `app.log` eOil a log ERP kontajnera bez client secretu, podpisového kľúča, Basic hlavičky, JWT, hesla aj `code_verifier` (0 zhôd).
+
+### Čo je čo po M2.1
+
+| | |
+|---|---|
+| Overené lokálne na reálnej lokálnej DB eOil | návrat z loginu, obnova pri platnej aj neplatnej session eOil, odhlásenie bez automatického návratu, katalóg a `.0x` |
+| Overené testami nad `eoil_test` | iba Admin, neaktívny Admin, Seller/Product, jednorazový kód pri zlyhanom mazaní, hlavičky, `$_POST`, návrat z loginu vrátane cudzieho nonce a zablokovaného účtu |
+| Iba mock (ERP Web testy) | obnova končiaca 401 hneď po obnove (ochrana proti slučke), zamietnutie počas obnovy, token endpoint nedostupný |
+| Limity pred produkciou | nezávislé bezpečnostné review, HTTPS a `cookie_secure=1`, produkčné tajomstvá mimo súborov, jeden server eOil (atomická spotreba kódu v zdieľanom úložisku pri viacerých), access log ERP bez query `/auth/callback`, single logout, audit prihlásení v ERP DB |
+
+### Lokálne súbory mimo gitu (worktree eOil)
+
+Pre funkčný návrat v lokálnom worktree som v jeho git-ignorovaných kópiách `common/config/params-local.php` (`loginUrl`, `baseFrontendUrl`, `baseBackendUrl`, `backendBaseUrl`) a `frontend/config/main-local.php` (`baseUrl`) zmenil cestu `/eoil-refacto/eoil-yii2` na `/eoil-erp-api-identity/eoil-yii2` a doplnil chýbajúci `frontend/config/codeception-local.php`. Pôvodný checkout eOil nie je zmenený.
+
+
+### Nezávislé overenie koordinátorom pred uložením M2.1
+
+Koordinátor 27. 9. 2026 skontroloval výsledný diff oboch aplikácií a zopakoval ERP suite: **263 testov / 844 assertions**, Psalm bez chýb a `composer validate --strict` úspešne. Nad izolovanou `eoil_test` zopakoval `services/erp` **23/78**, mapovanie katalógu **7/311**, backend `ErpAuthFlowCest` **18/109** a frontend `ErpLoginReturnCest` **7/17**; všetky úspešne. Celé historické eOil sady a lokálny E2E 28/28 v tomto overení znovu nespúšťal; ich výsledky vyššie sú hlásenie Claude Code, nie ďalší nezávislý beh. Kontrola whitespace pre eOil rešpektuje existujúce CRLF v AuthController (`core.whitespace=cr-at-eol`).
+
+Toto je cielené lokálne review a regresné overenie, nie úplný audit pre produkčné nasadenie. Prístup zostáva iba pre Admin. Uloženie smeruje do `codex/eoil-integration` a `codex/erp-api-identity`; bez merge do release a bez nasadenia.

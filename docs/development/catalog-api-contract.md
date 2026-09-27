@@ -57,7 +57,7 @@ Prázdne `items` je platný výsledok (UI: „Žiadny produkt nezodpovedá vyhľ
 - chýbajúce pole, nesprávny typ (napr. `"id": "101"`, `mrpNumbers: 901.01`), neplatná hodnota;
 - `page`/`pageSize` iné ako v požiadavke; počet `items` iný ako `min(25, max(0, total − (page − 1) · 25))` — napr. prázdne `items`, hoci `total` tvrdí, že na strane položky sú.
 
-Osobitne: **401** (`invalid_token`, `unauthorized`) = prihlásenie už neplatí → ERP zruší svoju session a pošle používateľa na prihlásenie s návratom na tú istú stránku. **403** (`forbidden`) = účet je zablokovaný alebo stratil rolu → ERP zruší session a zobrazí „Prístup zamietnutý“. eOil kontroluje `User.active` a rolu pri každej požiadavke.
+Osobitne: **401** (`invalid_token`, `unauthorized`) = prihlásenie už neplatí → ERP zruší svoju session a pri GET raz automaticky spustí nové prihlásenie cez eOil s návratom na tú istú stránku (najviac raz za 60 s, inak prihlasovacia stránka). **403** (`forbidden`) = účet je zablokovaný alebo stratil rolu → ERP zruší session a zobrazí „Prístup zamietnutý“. eOil kontroluje `User.active` a rolu pri každej požiadavke.
 
 Správa výnimky `CatalogUnavailable` je zložená iba z nášho textu a stavového kódu; neobsahuje token, hlavičky, surové telo ani pôvodnú výnimku klienta (nie je reťazená). Log obsahuje jeden riadok `warning`, napr. `Catalog list unavailable: Catalog API returned unexpected HTTP status 500.`
 

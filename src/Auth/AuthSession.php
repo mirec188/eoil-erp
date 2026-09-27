@@ -24,12 +24,18 @@ use function time;
  * - pending sign-in: state, PKCE verifier and the local return path, valid for 10 minutes;
  * - signed-in user: eOil user reference, display name, ERP roles, access token and its expiry.
  *   The ERP session ends at the latest when the eOil access token expires.
+ * - renewal: after the token expired (or eOil answered 401) the next GET may run the standard
+ *   authorize/PKCE flow once automatically; never after an explicit sign-out, and at most once per
+ *   RENEWAL_INTERVAL_SECONDS so an immediately failing renewal cannot loop.
  */
 final class AuthSession implements AccessTokenProvider
 {
     private const PENDING = 'erp.auth.pending';
     private const USER = 'erp.auth.user';
     private const NOTICE = 'erp.auth.notice';
+    private const RENEWABLE = 'erp.auth.renewable';
+    private const RENEWAL_AT = 'erp.auth.renewalAt';
+    public const RENEWAL_INTERVAL_SECONDS = 60;
     private const PENDING_TTL_SECONDS = 600;
     private const NOTICES = ['expired', 'denied', 'failed', 'unavailable', 'signed-out'];
     private const NON_RETURN_PREFIXES = ['/login', '/auth/', '/logout', '/health'];
@@ -89,6 +95,8 @@ final class AuthSession implements AccessTokenProvider
     /** New session ID on privilege change (session fixation), then store the user. */
     public function completeSignIn(TokenGrant $grant): void
     {
+        $this->session->remove(self::RENEWABLE);
+        $this->session->remove(self::NOTICE);
         $this->session->regenerateId();
         $this->session->set(self::USER, [
             'id' => $grant->user->id,
@@ -121,12 +129,42 @@ final class AuthSession implements AccessTokenProvider
     {
         $this->session->remove(self::USER);
         $this->session->remove(self::PENDING);
+        $this->session->remove(self::RENEWABLE);
         if ($this->session->isActive()) {
             $this->session->regenerateId();
         }
         if ($notice !== null) {
             $this->setNotice($notice);
         }
+    }
+
+    /**
+     * eOil no longer accepts the token (HTTP 401): end the sign-in but allow one automatic renewal.
+     */
+    public function expireSignIn(): void
+    {
+        $this->signOut('expired');
+        $this->session->set(self::RENEWABLE, true);
+    }
+
+    /**
+     * Whether this request may start the automatic renewal. Consumes the permission, so a renewal that
+     * does not complete (eOil login abandoned, access denied) is not retried automatically.
+     */
+    public function beginAutomaticRenewal(?int $now = null): bool
+    {
+        $now ??= time();
+        $this->storedUser($now);
+        $lastAttempt = $this->session->get(self::RENEWAL_AT);
+        if (
+            $this->session->get(self::RENEWABLE) !== true
+            || (is_int($lastAttempt) && $now - $lastAttempt < self::RENEWAL_INTERVAL_SECONDS)
+        ) {
+            return false;
+        }
+        $this->session->remove(self::RENEWABLE);
+        $this->session->set(self::RENEWAL_AT, $now);
+        return true;
     }
 
     public function setNotice(string $notice): void
@@ -183,6 +221,7 @@ final class AuthSession implements AccessTokenProvider
         if ($user['expiresAt'] <= ($now ?? time())) {
             $this->session->remove(self::USER);
             $this->setNotice('expired');
+            $this->session->set(self::RENEWABLE, true);
             return null;
         }
         /** @var array{id: int, displayName: string, roles: list<string>, accessToken: string, expiresAt: int} */

@@ -103,6 +103,70 @@ final class AuthSessionTest extends Unit
         assertSame('signed-out', $auth->pullNotice());
     }
 
+    public function testNaturalExpiryAllowsOneAutomaticRenewal(): void
+    {
+        $auth = new AuthSession(new InMemorySession());
+        $auth->completeSignIn($this->grant(2000));
+
+        assertSame(true, $auth->beginAutomaticRenewal(2000));
+        assertSame(false, $auth->beginAutomaticRenewal(2001), 'permission is consumed');
+        assertSame(false, $auth->beginAutomaticRenewal(5000), 'no new expiry, no renewal');
+    }
+
+    public function testRenewalCannotLoopWithinTheInterval(): void
+    {
+        $auth = new AuthSession(new InMemorySession());
+        $auth->completeSignIn($this->grant(2000));
+        assertSame(true, $auth->beginAutomaticRenewal(2000));
+
+        // The renewal completes, but the new sign-in is rejected at once (e.g. 401 from eOil).
+        $auth->completeSignIn($this->grant(2600));
+        $auth->expireSignIn();
+        assertSame(false, $auth->beginAutomaticRenewal(2000 + AuthSession::RENEWAL_INTERVAL_SECONDS - 1));
+        assertNull($auth->currentUser(2030));
+        assertSame('expired', $auth->pullNotice());
+    }
+
+    public function testRenewalIsAllowedAgainAfterTheInterval(): void
+    {
+        $auth = new AuthSession(new InMemorySession());
+        $auth->completeSignIn($this->grant(2000));
+        assertSame(true, $auth->beginAutomaticRenewal(2000));
+        $auth->completeSignIn($this->grant(2600));
+
+        assertSame(true, $auth->beginAutomaticRenewal(2600));
+    }
+
+    public function testExplicitSignOutNeverRenewsAutomatically(): void
+    {
+        $auth = new AuthSession(new InMemorySession());
+        $auth->completeSignIn($this->grant(2000));
+        $auth->expireSignIn();
+        $auth->signOut('signed-out');
+
+        assertSame(false, $auth->beginAutomaticRenewal(9000));
+    }
+
+    public function testRejectedTokenAllowsRenewal(): void
+    {
+        $auth = new AuthSession(new InMemorySession());
+        $auth->completeSignIn($this->grant(time() + 600));
+        $auth->expireSignIn();
+
+        assertNull($auth->currentUser());
+        assertSame(true, $auth->beginAutomaticRenewal());
+    }
+
+    public function testCompletedSignInClearsTheExpiredNotice(): void
+    {
+        $auth = new AuthSession(new InMemorySession());
+        $auth->completeSignIn($this->grant(2000));
+        $auth->currentUser(2000);
+        $auth->completeSignIn($this->grant(time() + 600));
+
+        assertNull($auth->pullNotice());
+    }
+
     public function testUnknownNoticeIsIgnored(): void
     {
         $auth = new AuthSession(new InMemorySession());

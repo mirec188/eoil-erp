@@ -19,8 +19,11 @@ use function in_array;
 
 /**
  * When the ERP reads real eOil data, every page except the sign-in flow and /health requires a
- * signed-in eOil user. Guests are sent to /login; the requested local path is kept for afterwards.
- * There is no bypass switch.
+ * signed-in eOil user. There is no bypass switch.
+ *
+ * - GET/HEAD after an expired sign-in: one automatic renewal through the standard authorize/PKCE flow
+ *   (/login/start), back to the same local GET address (AuthSession::beginAutomaticRenewal);
+ * - otherwise: /login. Only GET/HEAD addresses are kept as return path; other methods are never replayed.
  */
 final readonly class RequireSignInMiddleware implements MiddlewareInterface
 {
@@ -42,12 +45,17 @@ final readonly class RequireSignInMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
-        $target = $path . ($request->getUri()->getQuery() === '' ? '' : '?' . $request->getUri()->getQuery());
-        $return = AuthSession::safeReturnPath($target);
+        $isRead = in_array($request->getMethod(), ['GET', 'HEAD'], true);
+        $return = '/';
+        if ($isRead) {
+            $query = $request->getUri()->getQuery();
+            $return = AuthSession::safeReturnPath($path . ($query === '' ? '' : '?' . $query));
+        }
+        $entry = $isRead && $this->authSession->beginAutomaticRenewal() ? '/login/start' : '/login';
 
         return $this->responseFactory
             ->createResponse(Status::FOUND)
-            ->withHeader(Header::LOCATION, '/login' . ($return === '/' ? '' : '?' . http_build_query(['return' => $return])))
+            ->withHeader(Header::LOCATION, $entry . ($return === '/' ? '' : '?' . http_build_query(['return' => $return])))
             ->withHeader(Header::CACHE_CONTROL, 'no-store');
     }
 }
