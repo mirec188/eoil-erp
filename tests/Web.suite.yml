@@ -1,0 +1,18 @@
+actor: WebTester
+extensions:
+  enabled:
+    - Codeception\Extension\RunProcess:
+        # Main app: test env, synthetic fixture catalog.
+        0: env APP_ENV=test APP_DEBUG=false CATALOG_SOURCE=fixture php -S 127.0.0.1:8081 -t public public/index.php
+        # Mock of the proposed eOil catalog API (M2 contract draft), loopback only.
+        1: env PHP_CLI_SERVER_WORKERS=2 php -S 127.0.0.1:8092 tests/Support/MockCatalogApi/router.php
+        # Same app with the HTTP adapter pointed at the mock (synthetic token).
+        2: env APP_ENV=test APP_DEBUG=false CATALOG_SOURCE=http CATALOG_API_BASE_URL=http://127.0.0.1:8092 CATALOG_API_TOKEN=synthetic-token-7f3a-not-a-secret CATALOG_API_TIMEOUT=1 php -S 127.0.0.1:8082 -t public public/index.php
+        # Production configuration with the fixture catalog must refuse access.
+        3: env APP_ENV=prod APP_DEBUG=false CATALOG_SOURCE=fixture php -S 127.0.0.1:8083 -t public public/index.php
+        sleep: 2
+modules:
+  enabled:
+    - PhpBrowser:
+        url: http://127.0.0.1:8081
+    - App\Tests\Support\Helper\HttpResponse

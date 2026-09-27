@@ -1,0 +1,30 @@
+# eOil ERP — isolated local development stack (first slice).
+# Host port is bound to loopback only. Not a production deployment.
+name: eoil-erp
+
+services:
+  app:
+    build:
+      context: docker/php
+      dockerfile: Dockerfile
+    image: eoil-erp-php:dev
+    working_dir: /app
+    environment:
+      APP_ENV: ${APP_ENV:-dev}
+      APP_DEBUG: ${APP_DEBUG:-true}
+      # Explicit catalog source. `fixture` = synthetic demo data only.
+      CATALOG_SOURCE: ${CATALOG_SOURCE:-fixture}
+      CATALOG_API_BASE_URL: ${CATALOG_API_BASE_URL:-}
+      CATALOG_API_TOKEN: ${CATALOG_API_TOKEN:-}
+      CATALOG_API_TIMEOUT: ${CATALOG_API_TIMEOUT:-5}
+      PHP_CLI_SERVER_WORKERS: "4"
+    ports:
+      - "127.0.0.1:8088:8080"
+    volumes:
+      - ./:/app
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "-o", "/dev/null", "http://127.0.0.1:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s

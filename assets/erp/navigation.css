@@ -1,0 +1,60 @@
+/* ==========================================================================
+   eOil ERP — horizontal top-nav polish
+   --------------------------------------------------------------------------
+   Rules below are copied verbatim from eOil backend/web/css/newadmin-nav.css
+   (rev de5a5c2): single-row navbar from xl up and visible text labels in the
+   mobile hamburger drawer. Provenance: docs/development/theme-provenance.json
+   ========================================================================== */
+
+/* --- Hamburger drawer (below xl): labels are plain rows next to the icon --- */
+@media (max-width: 1199.98px) {
+    .navbar-static .navbar-nav .nav-label {
+        display: inline-block;
+    }
+}
+
+/* --- Horizontal bar (xl and up): compact so everything fits one row --- */
+@media (min-width: 1200px) {
+    /* Never wrap the right-side icon cluster onto a second line. */
+    .navbar-static > .container-fluid {
+        flex-wrap: nowrap;
+    }
+
+    /* Let the nav shrink instead of pushing the icons out of the row. */
+    .navbar-static .navbar-collapse {
+        min-width: 0;
+    }
+
+    /* Tighten each top-level link so all items fit. */
+    .navbar-static .navbar-nav > .nav-item > .navbar-nav-link {
+        padding-left: 0.6rem;
+        padding-right: 0.6rem;
+    }
+
+    /* Smaller icon -> label gap. */
+    .navbar-static .navbar-nav > .nav-item > .navbar-nav-link > .nav-label {
+        margin-left: 0.375rem !important;
+    }
+
+    /* Right-side icons: a touch tighter, stay centred in the row. */
+    .navbar-static .nav.ms-auto .navbar-nav-link-icon {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}
+
+/* --- xl only (1200-1399): a little tighter so items clear 1200px --- */
+@media (min-width: 1200px) and (max-width: 1399.98px) {
+    .navbar-static .navbar-nav > .nav-item > .navbar-nav-link {
+        padding-left: 0.45rem;
+        padding-right: 0.45rem;
+    }
+
+    .navbar-static .navbar-nav > .nav-item > .navbar-nav-link > .nav-label {
+        font-size: 0.8125rem;
+    }
+
+    .navbar-static .navbar-brand .h6 {
+        font-size: 0.75rem;
+    }
+}

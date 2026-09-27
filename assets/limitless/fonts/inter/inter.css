@@ -1,0 +1,41 @@
+/*
+ * Inter 3.18 (SIL Open Font License 1.1) — local subset for eOil ERP.
+ * Derived from Limitless template assets/fonts/inter/inter.css: only the
+ * weights 300–700 (normal style) that eOil newadmin loads from Google Fonts,
+ * woff2 sources only. Provenance: docs/development/theme-provenance.json.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("Inter-Light.woff2?v=3.18") format("woff2");
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("Inter-Regular.woff2?v=3.18") format("woff2");
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("Inter-Medium.woff2?v=3.18") format("woff2");
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("Inter-SemiBold.woff2?v=3.18") format("woff2");
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("Inter-Bold.woff2?v=3.18") format("woff2");
+}

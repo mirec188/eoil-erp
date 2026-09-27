@@ -11,3 +11,16 @@
 node_modules/
 __pycache__/
 *.pyc
+
+# Yii3 application (first slice)
+/vendor/
+/c3.php
+/config/.merge-plan.php
+/tests/_output/
+/tests/Support/_generated/*
+!/tests/Support/_generated/.gitignore
+/runtime/*
+!/runtime/.gitignore
+/public/assets/*
+!/public/assets/.gitignore
+.idea/

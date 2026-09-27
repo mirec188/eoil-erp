@@ -1,0 +1,156 @@
+{
+  "description": "Provenance of third-party files vendored into eOil ERP (first slice). Hashes are SHA-256 of file contents.",
+  "generatedAt": "2026-09-27",
+  "newadminTheme": {
+    "repository": "local checkout /Users/mirec/Sites/localhost/eoil-refacto (eOil, read-only source)",
+    "revision": "de5a5c2241503a02191a8d230078af7e071fac0b",
+    "sourceWorkingTreeClean": true,
+    "components": {
+      "Limitless": "4.0 (commercial ThemeForest template used by eOil newadmin)",
+      "Bootstrap": "5.2.2 (MIT, license header kept in JS)",
+      "Phosphor icons": "IcoMoon build shipped with Limitless (MIT)",
+      "Inter": "3.18 (SIL OFL 1.1)"
+    },
+    "notIncluded": [
+      "jQuery 3.6.1 (no ERP component needs it)",
+      "noty.min.js",
+      "Yii2 yii.js / YiiAsset",
+      "OrdersAsset and order/chat/tracking scripts",
+      "Phosphor selection.json (IcoMoon project file)",
+      "Google Fonts request"
+    ],
+    "licenseNote": "Limitless ships no license file in the template directory. Reuse in the ERP assumes the existing eOil Limitless license covers this internal application; to be confirmed by the owner.",
+    "files": [
+      {
+        "target": "assets/limitless/css/all.min.css",
+        "source": "eoil-yii2/new-template/template/html/layout_1/full/assets/css/ltr/all.min.css",
+        "sourceSha256": "fafe7ee320f54034b37c01c3c7159fd6aeafc6ec8eaef3b1c3c37cc42e8c4768",
+        "targetSha256": "fafe7ee320f54034b37c01c3c7159fd6aeafc6ec8eaef3b1c3c37cc42e8c4768",
+        "transform": "verbatim",
+        "note": "Limitless v4.0 layout_1 LTR bundle incl. Bootstrap 5.2.2. Contains 5 relative url() references to images (boxed_bg.png, login_cover.jpg, leaflet) that are not vendored; they are only requested by boxed layout, login cover and Leaflet classes, none of which the ERP uses."
+      },
+      {
+        "target": "assets/limitless/icons/phosphor/styles.min.css",
+        "source": "eoil-yii2/new-template/template/assets/icons/phosphor/styles.min.css",
+        "sourceSha256": "d12de488a9bbd61f8cf7f6061eaae52d8e2924747396c8225fd3d0cc6fededf1",
+        "targetSha256": "d12de488a9bbd61f8cf7f6061eaae52d8e2924747396c8225fd3d0cc6fededf1",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/icons/phosphor/fonts/Phosphor.ttf",
+        "source": "eoil-yii2/new-template/template/assets/icons/phosphor/fonts/Phosphor.ttf",
+        "sourceSha256": "f5cb8e3f9a8c625612c7bb076014e8426b18bc5932e7abc587125f6e46cfcca4",
+        "targetSha256": "f5cb8e3f9a8c625612c7bb076014e8426b18bc5932e7abc587125f6e46cfcca4",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/icons/phosphor/fonts/Phosphor.woff",
+        "source": "eoil-yii2/new-template/template/assets/icons/phosphor/fonts/Phosphor.woff",
+        "sourceSha256": "e6ca9e91fac33727f68280e40a9682f7ff130ae1a5665c3b4af10024e1786090",
+        "targetSha256": "e6ca9e91fac33727f68280e40a9682f7ff130ae1a5665c3b4af10024e1786090",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/icons/phosphor/fonts/Phosphor.svg",
+        "source": "eoil-yii2/new-template/template/assets/icons/phosphor/fonts/Phosphor.svg",
+        "sourceSha256": "3fc1e596549d41328afb39a20464ab32654032279c0b1de7a9a2a674e90e6def",
+        "targetSha256": "3fc1e596549d41328afb39a20464ab32654032279c0b1de7a9a2a674e90e6def",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/js/bootstrap/bootstrap.bundle.min.js",
+        "source": "eoil-yii2/new-template/template/assets/js/bootstrap/bootstrap.bundle.min.js",
+        "sourceSha256": "c4b2394a30fa0e4a23c6b308541353e20872a6fd765ed8fb70e6b402029deb00",
+        "targetSha256": "7cc684bcd9c27eb2034a433e85efbce40d66aabd28bec095b37bc025f65fe13d",
+        "transform": "removed trailing \"//# sourceMappingURL=bootstrap.bundle.min.js.map\" line (map file is not in the template; avoids a DevTools 404)"
+      },
+      {
+        "target": "assets/limitless/fonts/inter/Inter-Light.woff2",
+        "source": "eoil-yii2/new-template/template/assets/fonts/inter/Inter-Light.woff2",
+        "sourceSha256": "ff1c26c798310103eb6a3e6810d96b53358e82fb220b028173671290eefd0d1b",
+        "targetSha256": "ff1c26c798310103eb6a3e6810d96b53358e82fb220b028173671290eefd0d1b",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/fonts/inter/Inter-Regular.woff2",
+        "source": "eoil-yii2/new-template/template/assets/fonts/inter/Inter-Regular.woff2",
+        "sourceSha256": "bed72259a8e25611bfdcd02ae7534bab339f607cbce3b989614fb32a5fb95738",
+        "targetSha256": "bed72259a8e25611bfdcd02ae7534bab339f607cbce3b989614fb32a5fb95738",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/fonts/inter/Inter-Medium.woff2",
+        "source": "eoil-yii2/new-template/template/assets/fonts/inter/Inter-Medium.woff2",
+        "sourceSha256": "6be58eaba7a53c5f1e8ac57a8ae050078a6de66c792ec52d960f80218a21966a",
+        "targetSha256": "6be58eaba7a53c5f1e8ac57a8ae050078a6de66c792ec52d960f80218a21966a",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/fonts/inter/Inter-SemiBold.woff2",
+        "source": "eoil-yii2/new-template/template/assets/fonts/inter/Inter-SemiBold.woff2",
+        "sourceSha256": "d5a91eb1b863ca7543716e4782113a07504de66ece767eda455a33c344cbfefa",
+        "targetSha256": "d5a91eb1b863ca7543716e4782113a07504de66ece767eda455a33c344cbfefa",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/fonts/inter/Inter-Bold.woff2",
+        "source": "eoil-yii2/new-template/template/assets/fonts/inter/Inter-Bold.woff2",
+        "sourceSha256": "7824a9014117f15dfa90a4a1c4082b3c52eb3cb0aa9da3dcf627ff2886e039b4",
+        "targetSha256": "7824a9014117f15dfa90a4a1c4082b3c52eb3cb0aa9da3dcf627ff2886e039b4",
+        "transform": "verbatim"
+      },
+      {
+        "target": "assets/limitless/fonts/inter/inter.css",
+        "source": "eoil-yii2/new-template/template/assets/fonts/inter/inter.css",
+        "sourceSha256": "157a9e160c49868142fa90e206c9da1624dd3519e4bb1702475105aee9272915",
+        "targetSha256": "466df4466058c6d53dfbe3466e2c4607a0d57cbfcf7b0fb3b8f9e8d2102e6923",
+        "transform": "derived subset: @font-face for weights 300-700 normal only, woff2 sources only, font-display swap, header comment",
+        "note": "Replaces the Google Fonts request (Inter 300-700) made by eOil LimitlessAsset, so all fonts load locally."
+      },
+      {
+        "target": "assets/erp/custom.css",
+        "source": "eoil-yii2/backend/modules/newadmin/web/css/custom.css",
+        "sourceSha256": "986746de71dcc64da6da758fccbc4b0a55783b2f527420995744a38bf6568665",
+        "targetSha256": "4b1c2c7f817e16b0733b233fbcb555ba7c9d44b8c0aebb2cda68dc5e8bb78611",
+        "transform": "part 1 verbatim without the orders-only .status-filter* rules; header comment and ERP-specific part 2 appended"
+      },
+      {
+        "target": "assets/erp/navigation.css",
+        "source": "eoil-yii2/backend/web/css/newadmin-nav.css",
+        "sourceSha256": "cac12e9e8de295d394d63f113a128b1f956eb6b498a577d4677215018a20c9b2",
+        "targetSha256": "9912b67ed34b30dd491c8820352fee4232afea700797048a0c764de9760afd10",
+        "transform": "rules verbatim; original header comment replaced by an ERP header"
+      }
+    ]
+  },
+  "yii3Template": {
+    "repository": "https://github.com/yiisoft/app",
+    "revision": "19f5fdf9ddb784818d6f09653f53e63bc4e7dd63",
+    "localSnapshot": ".local/yii3-upstream",
+    "license": "BSD-3-Clause, copied to LICENSES/yiisoft-app-BSD-3-Clause.md",
+    "imported": [
+      "composer.json (adapted)",
+      "codeception.yml",
+      ".editorconfig",
+      "psalm.xml",
+      "rector.php",
+      ".php-cs-fixer.php (adapted)",
+      "composer-dependency-analyser.php (adapted)",
+      "yii",
+      "config/ (adapted)",
+      "src/bootstrap.php",
+      "src/Environment.php (extended)",
+      "src/Shared/ApplicationParams.php (adapted)",
+      "src/Web/HomePage, src/Web/NotFound, src/Web/Shared/Layout/Main (rewritten)",
+      "public/index.php, public/robots.txt, public/assets/.gitignore",
+      "runtime/.gitignore",
+      "tests/ (adapted)"
+    ],
+    "notImported": [
+      "docker/ and Makefile (FrankenPHP stack replaced by docker/php/Dockerfile + compose.yaml)",
+      "src/Console/HelloCommand.php and its test (demo)",
+      "assets/main/site.css, favicon.ico/svg (Yii branding)",
+      ".github/, README.md, CHANGELOG.md, screenshot.png"
+    ]
+  }
+}

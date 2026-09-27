@@ -1,0 +1,202 @@
+/* ==========================================================================
+   eOil ERP — shared visual customizations
+   --------------------------------------------------------------------------
+   Part 1 is copied verbatim from eOil newadmin
+   backend/modules/newadmin/web/css/custom.css (rev de5a5c2), without the
+   orders-only `.status-filter*` rules. Part 2 contains ERP-specific rules.
+   Provenance: docs/development/theme-provenance.json
+   ========================================================================== */
+
+/* --- Part 1: newadmin custom.css (verbatim) ------------------------------ */
+:root,
+[data-color-theme=light] {
+	--body-font-size-lg: 0.9rem;
+	--body-font-size-sm: 0.65rem;
+	--body-font-size-xs: 0.525rem;
+	--body-line-height-computed: calc(1275rem / 1000);
+	--body-line-height-lg: 1.275;
+	--body-line-height-sm: 1.7334;
+	--body-line-height-xs: 2.0;
+	--component-active-bg: #0c83ff;
+	--component-active-bg-rgb: 12, 131, 255;
+	--component-active-color: #fff;
+	--focus-ring-box-shadow: 0 0 0 0.125rem rgba(12, 131, 255, 0.25);
+	--spacer-1: 0.2125rem;
+	--spacer-2: 0.525rem;
+	--spacer: 1.15rem;
+	--spacer-4: 1.775rem;
+	--spacer-5: 3.65rem;
+	--icon-font-family: Phosphor;
+	--icon-font-size: 1.25rem;
+	--icon-font-size-lg: 1.5rem;
+	--icon-font-size-sm: 1rem;
+	--box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.125);
+	--box-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+	--box-shadow-lg: 0 6px 12px rgba(0, 0, 0, 0.15);
+	--transition-base-timer: 0.15s;
+	--transition-collapse-timer: 0.3s;
+	--gray-100: #F9FAFB;
+	--gray-200: #F3F4F6;
+	--gray-300: #E5E7EB;
+	--gray-400: #D1D5DB;
+	--gray-500: #9CA3AF;
+	--gray-600: #6B7280;
+	--gray-700: #4B5563;
+	--gray-800: #374151;
+	--gray-900: #1F2937;
+	--indigo: #5C6BC0;
+	--purple: #8e70c1;
+	--pink: #f35c86;
+	--teal: #26A69A;
+	--yellow: #ffd648;
+	--primary: #0c83ff;
+	--secondary: #247297;
+	--success: #059669;
+	--info: #049aad;
+	--warning: #f58646;
+	--danger: #EF4444;
+	--light: #F3F4F6;
+	--dark: #252b36;
+	--black: #000;
+	--white: #fff;
+	--indigo-rgb: 92, 107, 192;
+	--purple-rgb: 142, 112, 193;
+	--pink-rgb: 243, 92, 134;
+	--teal-rgb: 38, 166, 154;
+	--yellow-rgb: 255, 214, 72;
+	--primary-rgb: 12, 131, 255;
+	--secondary-rgb: 36, 114, 151;
+	--success-rgb: 5, 150, 105;
+	--info-rgb: 4, 154, 173;
+	--warning-rgb: 245, 134, 70;
+	--danger-rgb: 239, 68, 68;
+	--light-rgb: 243, 244, 246;
+	--dark-rgb: 37, 43, 54;
+	--black-rgb: 0, 0, 0;
+	--white-rgb: 255, 255, 255;
+	--body-color-rgb: 31, 41, 55;
+	--body-bg-rgb: 241, 244, 249;
+	--font-sans-serif: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+	--font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+	--gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+	--body-font-family: var(--font-sans-serif);
+	--body-font-size: 0.775rem;
+	--body-font-weight: 400;
+	--body-line-height: 1.3715;
+	--body-color: #1F2937;
+	--body-bg: #f1f4f9;
+	--border-width: 1px;
+	--border-style: solid;
+	--border-color: #D1D5DB;
+	--border-color-translucent: rgba(0, 0, 0, 0.125);
+	--border-radius: 0.375rem;
+	--border-radius-sm: 0.25rem;
+	--border-radius-lg: 0.5rem;
+	--border-radius-xl: 1rem;
+	--border-radius-2xl: 2rem;
+	--border-radius-pill: 50rem;
+	--link-color: #0c83ff;
+	--link-hover-color: #0962bf;
+	--code-color: #f35c86;
+	--highlight-bg: rgba(0, 0, 0, 0.15);
+}
+
+/* .body {
+    background-color: #f1aaf9 !important;
+} */
+
+/* Override Bootstrap grid gutter spacing */
+.container,
+.container-fluid,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl,
+.container-xxl,
+.row {
+    --gutter-y: 0.1rem; /* Change this value to your desired spacing */
+}
+.p-1{padding:.2125rem!important}.p-2{padding:.525rem!important}.p-3{padding:1.11rem!important}.p-4{padding:1.475rem!important}.p-5{padding:3.25rem!important}
+/* Or use Bootstrap's utility classes like .g-2, .gy-3 etc. for more granular control */
+
+.table,
+.table-sm {
+    --table-cell-padding-y: 0.5rem;
+    --table-cell-padding-x: 0.4rem;
+}
+
+/* --- Part 2: eOil ERP ---------------------------------------------------- */
+
+/* Keyboard focus must be clearly visible on the dark navbar (the theme only reuses the hover background). */
+.navbar-dark .navbar-nav-link:focus-visible,
+.navbar-dark .navbar-brand a:focus-visible,
+.navbar-dark .navbar-toggler:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+/* Product names come from an external source: long or unusual text must never widen the page. */
+.catalog-name,
+.breadcrumb-item {
+    overflow-wrap: anywhere;
+}
+
+/* Catalog list below md: stacked rows, so MRP, state and Detail stay visible without horizontal scrolling. */
+@media (max-width: 767.98px) {
+    .catalog-table thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    .catalog-table,
+    .catalog-table tbody {
+        display: block;
+    }
+
+    .catalog-table tr {
+        display: flex;
+        flex-direction: column;
+        padding: var(--spacer-2) var(--spacer);
+        border-bottom: var(--border-width) solid var(--border-color);
+    }
+
+    .catalog-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: var(--spacer);
+        padding: 0.15rem 0;
+        border: 0;
+        text-align: right;
+    }
+
+    .catalog-table td::before {
+        content: attr(data-label);
+        flex-shrink: 0;
+        font-family: var(--body-font-family);
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .catalog-table td.catalog-name {
+        order: -1;
+        display: block;
+        padding-bottom: 0.35rem;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    .catalog-table td.catalog-name::before,
+    .catalog-table td.catalog-actions::before {
+        content: none;
+    }
+
+    .catalog-table td.catalog-actions {
+        justify-content: flex-end;
+        padding-top: 0.35rem;
+    }
+}

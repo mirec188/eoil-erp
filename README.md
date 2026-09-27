@@ -1,10 +1,37 @@
-# eOil ERP — analýza a návrh
+# eOil ERP — analýza, návrh a prvý Yii3 balík
 
-Stav k **27. 9. 2026**: prvá reverzná analýza lokálnej kópie MRP K/S a návrh hraníc nového systému. Repo zatiaľ obsahuje dokumentáciu a nástroje na čítanie dát. Migračný import ešte neexistuje. Na základe následného zadania sa pripravuje prvý Yii3 implementačný balík.
+Repo má dve oddelené časti:
+
+1. **Spustiteľná lokálna ukážka** — prvý Yii3 implementačný balík (nižšie).
+2. **Analýza MRP a návrh** — reverzná analýza a architektúra (od časti „Čítať v tomto poradí“).
+
+## Spustiteľná lokálna ukážka (prvý balík, 27. 9. 2026)
+
+Samostatná Yii3 aplikácia (PHP 8.4, Docker) so vzhľadom eOil newadmin a **read-only katalógom balení nad ukážkovými (syntetickými) údajmi**. Nie je to produkčná administrácia: nemá prihlásenie, `APP_ENV=prod` odmietne prístup a nič nezapisuje do eOil ani MRP.
+
+```sh
+docker compose build
+docker compose run --rm --no-deps app composer install --no-interaction
+docker compose up -d --wait
+# http://127.0.0.1:8088/  ·  testy: docker compose run --rm --no-deps app vendor/bin/codecept run
+```
+
+| | Stav |
+|---|---|
+| Yii3 základ, layout newadmin, `/health` | implementované, overené testami a v prehliadači |
+| Katalóg `/catalog`, detail `/catalog/{id}` | implementované nad **ukážkovými údajmi** |
+| HTTP adaptér na eOil API | implementovaný podľa **návrhu** kontraktu; overený iba na testovom transporte a mocku — eOil endpoint neexistuje |
+| Prihlásenie User, práva, sklady, migrácia | plánované (M2–M4) |
+
+[Lokálne spustenie a testy](docs/development/local-setup.md) · [Návrh API kontraktu](docs/development/catalog-api-contract.md) · [Výsledky overenia](docs/development/foundation-validation.md) · [Pôvod prevzatých súborov](docs/development/theme-provenance.json)
+
+## Analýza MRP a návrh
+
+Stav k **27. 9. 2026**: prvá reverzná analýza lokálnej kópie MRP K/S a návrh hraníc nového systému. Analytická časť obsahuje dokumentáciu a nástroje na čítanie dát (`tools/research/`). Migračný import ešte neexistuje.
 
 **Potvrdená hranica:** `ProductHasPack`, `User` a dohodnuté kmeňové údaje zostávajú v eOil. ERP je samostatná aplikácia, napojená cez API. Konkrétne vlastníctvo ostatných entít je uvedené v návrhu; slovo „a pod.“ sa nepovažuje za hotovú špecifikáciu.
 
-## Čítať v tomto poradí
+### Čítať v tomto poradí
 
 1. [Zistenia a mapa používaných funkcií](docs/research/02-current-state.md)
 2. [Metóda, dôkazy a limity analýzy](docs/research/01-scope-and-method.md)
@@ -19,7 +46,7 @@ Stav k **27. 9. 2026**: prvá reverzná analýza lokálnej kópie MRP K/S a náv
 
 Rozhodnutia: [ADR-001: identity v eOil](docs/decisions/001-eoil-master-data.md), [ADR-002: modulárna aplikácia a API](docs/decisions/002-modular-application.md), [ADR-003: migrácia zostatkov a histórie](docs/decisions/003-history-and-opening.md).
 
-## Čo už vieme
+### Čo už vieme
 
 - Hlavná databáza má 387 tabuliek, 190 s dátami. Profilované sú aj ďalšie štyri databázy.
 - Skontrolovaný vzorec zostatku sedí pri všetkých **75 831** kombináciách karta–sklad: počiatočný stav + platné účtované pohyby. Historické pohyby po ročnom prevode sa nesmú započítať znovu.

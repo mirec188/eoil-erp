@@ -17,6 +17,6 @@ Koordinátor musí výsledok nezávisle skontrolovať. Prvý úspešný modelov�
 
 ## Stav prípravy 27. 9. 2026
 
-Overená verzia CLI: 2.1.263. Probe s `--model claude-opus-5-5` skončil pred inferenciou: `OAuth session expired and could not be refreshed`. CLI tiež vypísalo `unrecognized_model`; oficiálna dokumentácia však uvedené ID pozná. Po obnovení prihlásenia treba znovu overiť výsledok; ak je problém s rozpoznaním aj potom, preveriť aktualizáciu CLI. Model sa nesmie svojvoľne nahradiť.
+Používateľ aktualizoval CLI na **2.1.283** a obnovil prihlásenie. Následný probe úspešne odpovedal; `modelUsage` potvrdilo `claude-opus-5-5`. Pôvodná chyba expirovaného OAuth bola odstránená.
 
-Používateľ potvrdil, že obnoví prihlásenie. Implementačná session zatiaľ nebola spustená. Tento stav sa aktualizuje až podľa skutočného výsledku behu.
+Spustená uložená implementačná session **`6f935d48-fe27-4cac-87bc-237ef7baec89`**, model Opus 5.5, effort `xhigh`, vetva `codex/yii3-foundation`. Nejde o jednorazový beh s vypnutým ukladaním histórie. [Register session a pokračovanie](claude-sessions.md).
